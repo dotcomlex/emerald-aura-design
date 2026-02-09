@@ -1,64 +1,71 @@
 
 
-# Fix Portfolio 3D Carousel - Match 14ER Exactly
+# Copy 14ER CircularGallery Exactly
 
 ## Problem
-The current carousel uses discrete step-based rotation (`setInterval` jumping 45 degrees every 4 seconds), causing jerky, broken behavior. The 14ER version uses continuous frame-based rotation via `requestAnimationFrame` for smooth, constant spinning.
+The current carousel has correct rotation logic but the cards are too small and the section styling doesn't match the 14ER reference. The `circular-gallery.tsx` source from 14ER wasn't included in the dump, so the card sizing and layout need to be matched from the reference screenshots and the GallerySection usage patterns.
 
-## Solution
-Create a new `CircularGallery` component matching the 14ER architecture, then update `Portfolio.tsx` to use it.
+## Changes
 
-## Files to Create/Modify
+### 1. `src/components/ui/CircularGallery.tsx` - Match 14ER card sizing and data model
 
-### 1. NEW: `src/components/ui/CircularGallery.tsx`
-A standalone 3D carousel engine with:
-- **Continuous rotation** using `requestAnimationFrame` (not setInterval)
-- `autoRotateSpeed` prop (default `-0.035` degrees/frame, matching 14ER)
-- **Drag/swipe support**: mouse drag and touch drag to rotate manually
-- **IntersectionObserver**: only animate when section is in viewport
-- **Responsive radius** via prop (passed from parent)
-- Cards positioned with `rotateY(angle + currentRotation)deg translateZ(radius)` around a circle
-- Each card: rounded-2xl, shadow-2xl, full-bleed image, gradient overlay, text at bottom
-- `backfaceVisibility: hidden` to hide rear-facing cards
-- Opacity fading for cards not facing front (angle > 90 degrees from front)
-- `onItemClick` callback for lightbox integration
+**Data model change** - Match the 14ER `GalleryItem` interface exactly:
+```
+{ common: string, binomial: string, photo: { url: string, text: string, by: string } }
+```
+This replaces the current `CarouselItem` with `id/title/location/category/image`.
 
-### 2. MODIFY: `src/components/sections/Portfolio.tsx`
-- Remove all rotation/activeIndex state logic and setInterval auto-rotation
-- Add responsive radius with `useEffect` + resize listener (320px mobile, 520px desktop)
-- Add `IntersectionObserver` to detect when section is visible (`isActive` state)
-- Pass items, radius, `autoRotateSpeed={-0.035}`, `isActive`, and `onItemClick` to `CircularGallery`
-- Keep the existing lightbox modal, header, instruction text, and CTA button
-- Match the 14ER background exactly: multi-layer with base gradient (`from-[#0a1628] via-[#0d1f3c] to-[#0a0f1a]`), radial blue glow, mesh gradient overlay (orange/blue/purple radials), and vignette
+**Card sizing** - Increase to fill the section properly:
+- Current: `w-56 h-72 sm:w-64 sm:h-80 md:w-80 md:h-96` (tiny)
+- New: `w-[280px] h-[380px] sm:w-[340px] sm:h-[440px] md:w-[420px] md:h-[520px]` (matches 14ER proportions where front card dominates)
 
-### 3. No new dependencies needed
-The `react-use-measure` package used in 14ER is not required -- we can use `useRef` + `getBoundingClientRect` or just CSS for the container sizing.
+**Accept `className` prop** - The 14ER GallerySection passes `className="relative z-10 h-[340px] sm:h-[420px] md:h-[480px]"` to CircularGallery. The component needs to accept and apply a className prop for height and positioning.
 
-## Technical: CircularGallery Rotation Engine
+**Card text layout** - Match 14ER naming:
+- Line 1: `item.common` (project name) - white, bold
+- Line 2: `item.binomial` (location) - white/70
+- Line 3: "Emerald Paints" (hardcoded brand) - white/50
 
-```text
-On each animation frame:
-  if (not dragging && isActive):
-    currentAngle += autoRotateSpeed
-  
-  For each card at index i:
-    cardAngle = (360 / totalCards) * i + currentAngle
-    normalizedAngle = normalize to [-180, 180]
-    
-    transform: rotateY(cardAngle)deg translateZ(radius)px
-    opacity: |normalizedAngle| < 90 ? lerp(1, 0.3) : 0
-    zIndex: based on how close to front (cos of angle)
-    scale: front card ~1.0, sides ~0.85
+**onItemClick** - Change to pass the array index (not an id), matching the 14ER pattern where lightbox uses index-based navigation.
+
+The rotation engine (requestAnimationFrame, drag/swipe, angleRef) stays identical -- it's already correct.
+
+### 2. `src/components/sections/Portfolio.tsx` - Match 14ER GallerySection exactly
+
+**Data structure** - Switch to the 14ER `GalleryItem` format:
+```typescript
+const items = useMemo(() => [
+  { common: "Kitchen Cabinet Refinishing", binomial: "Denver, CO", photo: { url: portfolioKitchen, text: "Kitchen refinishing", by: "Emerald Paints" } },
+  // ... 8 items total
+], []);
 ```
 
-Drag handling:
-- On mousedown/touchstart: record startX and startAngle
-- On mousemove/touchmove: currentAngle = startAngle + (deltaX * sensitivity)
-- On mouseup/touchend: resume auto-rotation
+**Section structure** - Add `md:min-h-screen` to the section (matches 14ER).
 
-## Background Layers (matching 14ER exactly)
-1. Base gradient: `bg-gradient-to-b from-[#0a1628] via-[#0d1f3c] to-[#0a0f1a]`
-2. Radial glow: `bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08)_0%,transparent_70%)]`
-3. Mesh gradient: three radial gradients (orange at 20%/80%, blue at 80%/20%, purple at center) at 30% opacity
-4. Vignette: `bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]`
+**Lightbox** - Rewrite to match 14ER exactly:
+- Uses plain div (not framer-motion AnimatePresence)
+- `fixed inset-0 z-50 bg-black/95`
+- Close button: rounded circle `bg-white/10 hover:bg-white/20`, top-right
+- Prev/Next buttons: rounded circles with `bg-white/10 hover:bg-white/20`, centered vertically
+- Image info bar at bottom: gradient overlay with project name, location, and counter "X / Y"
+- Keyboard navigation (Escape, ArrowLeft, ArrowRight)
+- Body scroll lock when lightbox is open
+
+**CircularGallery usage** - Pass className for height:
+```
+className="relative z-10 h-[340px] sm:h-[420px] md:h-[480px]"
+```
+
+**Instruction text** - Match exactly: "Auto-rotates . Swipe left or right to explore . Tap any photo to view"
+
+### 3. No dependency changes needed
+
+## Technical Notes
+
+The rotation engine in `CircularGallery.tsx` is already correct (requestAnimationFrame with angleRef). The main fixes are:
+1. Card sizing (much larger cards)
+2. Data model alignment with 14ER
+3. Lightbox matching the 14ER style (plain div, rounded buttons, keyboard nav)
+4. Section getting `md:min-h-screen`
+5. className prop on CircularGallery for external height control
 
