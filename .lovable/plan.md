@@ -1,141 +1,167 @@
 
 
-# Premium Website Overhaul
+# Color System Complete Overhaul
 
 ## Overview
-This is a comprehensive visual and UX overhaul of the entire Emerald Paints website. The goal is to elevate the site from "basic template" to a premium, $50K-feel design studio aesthetic. The changes span color corrections, spacing improvements, logo visibility fixes, a portfolio gallery rebuild, testimonial redesign, and green reduction across all pages.
+Replace the dominant emerald green (#22c55e / emerald-500) color system with a sophisticated blue + orange palette. Green will be restricted to tiny checkmarks and success indicators only. This touches every component and page across the site.
 
 ---
 
-## Key Problems Being Solved
+## New Color Mapping
 
-1. **Logo invisible on dark backgrounds** -- dark navy text on dark sections
-2. **Too much green** -- emerald-50/100 backgrounds everywhere feel overwhelming
-3. **Cramped sections** -- not enough vertical padding or breathing room
-4. **Portfolio gallery broken** -- 3D carousel may show overlapping cards or harsh placeholder colors
-5. **Basic template feel** -- needs more elegance and sophistication
-
----
-
-## Changes by File
-
-### 1. `src/index.css` -- Spacing & Overflow Fixes
-
-- Update `.section-padding` from `py-16 lg:py-24` to `py-20 lg:py-28` (80px / 112px)
-- Add `overflow-x: hidden` on `html, body` and `max-width: 100vw`
-- Add `box-sizing: border-box` on `*`
-
-### 2. `src/components/layout/Navigation.tsx` -- Logo Visibility Fix
-
-- Wrap the logo `<img>` in a white rounded container (`bg-white rounded-lg p-1.5`) when NOT scrolled (dark background). When scrolled, show logo normally on white header.
-- Remove the text-based `{COMPANY.shortName}` span entirely -- use ONLY the image logo.
-- In the mobile menu overlay, replace the text "Emerald Paints" logo with the image logo in a white container.
-
-### 3. `src/components/sections/Hero.tsx` -- Dark Navy Background
-
-- Change the base gradient from `from-charcoal via-navy-light to-emerald-900/30` to `from-[#0f172a] via-[#0d1f3c] to-[#0f172a]` (pure dark navy, NO green tint).
-- Use `bg-emerald-700` for the primary CTA button instead of `bg-emerald-500` for a deeper, more premium feel.
-- Keep the hero image and dark overlay as-is.
-
-### 4. `src/components/sections/ServicesPreview.tsx` -- Background Fix
-
-- Change section background from `bg-cream` to `bg-white`.
-- Add card border: `border border-gray-100`.
-- Increase card image aspect ratio class usage and ensure hover shadow is `hover:shadow-xl`.
-
-### 5. `src/components/sections/WhyChooseUs.tsx` -- Green Reduction
-
-- Remove `bg-emerald-50` from the eyebrow pill badge, replace with `bg-gray-100 text-emerald-700`.
-- Keep the emerald icon backgrounds (small accents are fine).
-- Proof point card backgrounds stay `bg-charcoal-50` (neutral).
-
-### 6. `src/components/sections/ProcessSteps.tsx` -- Remove Green Background
-
-- Change section background from `bg-emerald-50` to `bg-[#fafafa]` (warm white/soft cream).
-- Change the vertical timeline line from `bg-emerald-200` to `bg-gray-200`.
-- Change the horizontal line from `bg-emerald-200` to `bg-gray-200`.
-
-### 7. `src/components/sections/Portfolio.tsx` -- Gallery Rebuild
-
-- Increase `radius` to 480px (desktop) / 300px (mobile) to prevent card overlap.
-- Increase container height to accommodate larger radius.
-- Keep existing image-based cards (they have real images now).
-- Ensure `backfaceVisibility: "hidden"` is set on each card.
-- Add `cursor: grab` on the container, `cursor: grabbing` while dragging.
-- Slow down auto-rotation slightly (0.06 per frame instead of 0.1).
-
-### 8. `src/components/sections/Testimonials.tsx` -- Premium Redesign
-
-- Replace the simple dot-selector carousel with a larger featured testimonial card.
-- Add name-based selector buttons below the card (showing first name and city).
-- Active selector gets `bg-emerald-600 text-white`, inactive gets `bg-white/5 text-white/70`.
-- Increase auto-advance interval from 6s to 8s.
-- Larger quote text, more generous padding inside the card.
-
-### 9. `src/components/sections/ServiceAreas.tsx` -- Green Reduction
-
-- Change area tags from `bg-emerald-50 border-emerald-100` to `bg-gray-50 border-gray-200`.
-- Keep the emerald CheckCircle icon (small accent is fine).
-
-### 10. `src/components/sections/FinalCTA.tsx` -- Already Good
-
-- This section uses a dark image background -- minimal changes needed. Already premium.
-
-### 11. `src/components/ui/SectionHeader.tsx` -- Spacing
-
-- Increase bottom margin from `mb-12 lg:mb-16` to `mb-14 lg:mb-20` for more breathing room.
-
-### 12. `src/pages/Services.tsx` -- Green Reduction
-
-- Change Quality Commitment section from `bg-emerald-50` to `bg-[#fafafa]`.
-- Change the eyebrow pill in Quality section from emerald tint to `bg-gray-100 text-emerald-700`.
-- Change the icon backgrounds in quality points from `bg-emerald-100` to `bg-emerald-50` (lighter).
-- Services hero gradient: remove green endpoint, use pure navy: `linear-gradient(135deg, #0f172a 0%, #0d1f3c 100%)`.
-
-### 13. `src/pages/About.tsx` -- Green Reduction
-
-- Change hero gradient from `#047857` to `#0d1f3c` endpoint (navy, not green).
-- Change Values section background from `bg-emerald-50` to `bg-[#fafafa]`.
-- Change value card icon backgrounds from `bg-emerald-100` to `bg-emerald-50`.
-- Change stats section background from `bg-charcoal` to `bg-charcoal-900` (`#0f172a`) for richer dark navy.
-
-### 14. `src/components/layout/Footer.tsx` -- Logo Fix
-
-- Wrap logo image in white container (same treatment as navigation).
-- Remove the text `{COMPANY.shortName}` span.
+| Old | New | Where |
+|-----|-----|-------|
+| `emerald-500` (buttons, CTAs) | `orange-500` (#f97316) | Primary CTA buttons |
+| `emerald-600` (hover states) | `orange-600` (#ea580c) | Button hovers |
+| `emerald-700` (hero CTA) | `orange-500` | Hero primary button |
+| `emerald-400` (accents on dark bg) | `blue-400` (#60a5fa) | Eyebrows, highlights on dark sections |
+| `emerald-500` (icon badges, step circles) | `blue-500` (#3b82f6) | Icon badges, process step numbers |
+| `emerald-600` (icon color in cards) | `blue-600` (#2563eb) | Icon fills inside cards |
+| `emerald-100` / `emerald-50` (icon bg) | `blue-50` / `blue-100` | Icon background circles |
+| `emerald-500` (eyebrow text on light bg) | `orange-500` | Eyebrow labels on light sections |
+| `emerald-600` (eyebrow text on light bg) | `orange-600` | Eyebrow labels variation |
+| `emerald-500` (CheckCircle icons) | `emerald-500` | KEEP -- only valid green use |
+| `shadow-glow-emerald` | Remove or change to orange shadow | Button glow effects |
+| `bg-emerald-500` (CTA sections) | `bg-slate-800` (#1e293b) | Full-section CTA backgrounds |
+| `bg-emerald-50` (response badge) | `bg-blue-50 border-blue-200` | Contact sidebar badge |
+| `text-emerald-400` (mobile nav active) | `text-blue-400` | Active nav link in mobile |
+| `text-emerald-600` (active nav scrolled) | `text-blue-600` | Active nav link when scrolled |
+| `after:bg-emerald-500` (nav underline) | `after:bg-blue-500` | Nav link underline animation |
 
 ---
 
-## Summary of Color Changes
+## Files Modified (16 total)
 
-| Location | Before | After |
-|----------|--------|-------|
-| Process Steps bg | `bg-emerald-50` | `bg-[#fafafa]` |
-| Services Quality bg | `bg-emerald-50` | `bg-[#fafafa]` |
-| About Values bg | `bg-emerald-50` | `bg-[#fafafa]` |
-| Service Areas tags | `bg-emerald-50` | `bg-gray-50` |
-| WhyChooseUs eyebrow | `bg-emerald-50` | `bg-gray-100` |
-| Hero base gradient | Green-tinted | Pure dark navy |
-| Services hero gradient | Green endpoint | Navy only |
-| About hero gradient | Green endpoint | Navy only |
-| Dark sections | `bg-charcoal` | `bg-charcoal-900` / `#0f172a` |
+### 1. `tailwind.config.ts`
+- Add `shadow-glow-orange` to replace `shadow-glow-emerald`
+- Add `shadow-glow-orange-strong` to replace `shadow-glow-emerald-strong`
+- Update `pulse-glow` keyframe to use orange rgba values instead of emerald
 
-## Files Modified (14 total)
+### 2. `src/index.css`
+- Change CSS variable `--primary` from `160 84% 39%` (emerald) to `221 83% 53%` (blue-500)
+- Change `--ring` similarly
+- Dark mode primary also updated
 
-1. `src/index.css`
-2. `src/components/layout/Navigation.tsx`
-3. `src/components/layout/Footer.tsx`
-4. `src/components/ui/SectionHeader.tsx`
-5. `src/components/sections/Hero.tsx`
-6. `src/components/sections/ServicesPreview.tsx`
-7. `src/components/sections/WhyChooseUs.tsx`
-8. `src/components/sections/ProcessSteps.tsx`
-9. `src/components/sections/Portfolio.tsx`
-10. `src/components/sections/Testimonials.tsx`
-11. `src/components/sections/ServiceAreas.tsx`
-12. `src/components/sections/FinalCTA.tsx`
-13. `src/pages/Services.tsx`
-14. `src/pages/About.tsx`
+### 3. `src/components/layout/Navigation.tsx`
+- Nav underline: `after:bg-emerald-500` -> `after:bg-blue-500`
+- Active link scrolled: `text-emerald-600` -> `text-blue-600`
+- Active link dark: `text-emerald-400` -> `text-blue-400`
+- Desktop CTA button: `bg-emerald-500 hover:bg-emerald-600 shadow-glow-emerald` -> `bg-orange-500 hover:bg-orange-600 shadow-glow-orange`
+- Mobile CTA: `bg-emerald-500 hover:bg-emerald-600` -> `bg-orange-500 hover:bg-orange-600`
+- Mobile active link: `text-emerald-400` -> `text-blue-400`
+- Mobile phone icon: `text-emerald-400` -> `text-blue-400`
 
-No new files or dependencies required.
+### 4. `src/components/layout/Footer.tsx`
+- Social icon hover: `hover:bg-emerald-500/20` -> `hover:bg-blue-500/20`
+- Link hover: `hover:text-emerald-400` -> `hover:text-blue-400`
+
+### 5. `src/components/layout/FloatingCTA.tsx`
+- `bg-emerald-500` -> `bg-orange-500`
+- `shadow-glow-emerald-strong` -> `shadow-glow-orange-strong`
+- Update `animate-pulse-glow` keyframe (in tailwind config) to orange
+
+### 6. `src/components/sections/Hero.tsx`
+- Eyebrow: `text-emerald-400` -> `text-blue-400`
+- "Lasting Impressions" highlight: `text-emerald-400` -> `text-blue-400`
+- Primary CTA: `bg-emerald-700 hover:bg-emerald-800 shadow-glow-emerald` -> `bg-orange-500 hover:bg-orange-600 shadow-glow-orange`
+- Trust badge icons: `text-emerald-400` -> `text-blue-400` (except Star which stays gold)
+
+### 7. `src/components/sections/SocialProofMarquee.tsx`
+- No changes needed (already uses gold for stars, white for text)
+
+### 8. `src/components/sections/ServicesPreview.tsx`
+- Icon circle: `bg-emerald-50` -> `bg-blue-50`
+- Icon color: `text-emerald-600` -> `text-blue-600`
+- "Learn More" link: `text-emerald-500` -> `text-blue-500`
+- "View All Services" button: `bg-emerald-500 hover:bg-emerald-600` -> `bg-orange-500 hover:bg-orange-600`
+
+### 9. `src/components/sections/WhyChooseUs.tsx`
+- Eyebrow pill: `text-emerald-700` -> `text-blue-700`
+- Floating badge: `bg-emerald-500 shadow-glow-emerald` -> `bg-orange-500 shadow-glow-orange`
+- Icon backgrounds: `bg-emerald-100` -> `bg-blue-100`
+- Icon colors: `text-emerald-600` -> `text-blue-600`
+
+### 10. `src/components/sections/ProcessSteps.tsx`
+- Step number circles: `bg-emerald-500` -> `bg-blue-500`
+- Step icons: `text-emerald-500` -> `text-blue-500`
+
+### 11. `src/components/sections/Portfolio.tsx`
+- CTA button: `bg-emerald-500 hover:bg-emerald-600 shadow-glow-emerald` -> `bg-orange-500 hover:bg-orange-600 shadow-glow-orange`
+
+### 12. `src/components/sections/Testimonials.tsx`
+- Author avatar circle: `bg-emerald-600` -> `bg-blue-600`
+- Active selector button: `bg-emerald-600` -> `bg-blue-600`
+
+### 13. `src/components/sections/ServiceAreas.tsx`
+- CheckCircle icons: `text-emerald-500` -> KEEP (valid green usage for checkmarks)
+- No other changes needed (already using gray-50 bg)
+
+### 14. `src/components/sections/FinalCTA.tsx`
+- "Let's Talk" badge: `bg-emerald-500` -> `bg-orange-500`
+- CTA button: `bg-emerald-500 hover:bg-emerald-600 shadow-glow-emerald` -> `bg-orange-500 hover:bg-orange-600 shadow-glow-orange`
+
+### 15. `src/components/ui/SectionHeader.tsx`
+- Light mode eyebrow: `text-emerald-600` -> `text-orange-500`
+- Dark mode eyebrow: `text-emerald-400` -> `text-blue-400`
+
+### 16. `src/pages/Services.tsx`
+- Hero icon badge: `bg-emerald-500 shadow emerald` -> `bg-blue-500 shadow blue`
+- "What We Offer" eyebrow: `text-emerald-500` -> `text-orange-500`
+- Service card icon badge: `bg-emerald-500 border-white shadow-emerald` -> `bg-blue-500`
+- Card hover border: `hover:border-emerald-200` -> `hover:border-blue-200`
+- CheckCircle icons in features: KEEP green (valid usage)
+- "Get a Quote" links: `text-emerald-500 hover:text-emerald-600` -> `text-blue-500 hover:text-blue-600`
+- Quality section eyebrow: `text-emerald-600` -> `text-orange-500`
+- Quality icon bg: `bg-emerald-50` -> `bg-blue-50`
+- Quality icon color: `text-emerald-600` -> `text-blue-600`
+- Brand hover: `hover:text-emerald-600` -> `hover:text-blue-600`
+- Process step circles: `bg-emerald-500` -> `bg-blue-500`
+- Process icons: `text-emerald-400` -> `text-blue-400`
+- FAQ accordion icon: `[&>svg]:text-emerald-500` -> `[&>svg]:text-blue-500`
+- CTA section: `bg-emerald-500` -> `bg-slate-800`
+- CTA button: `text-emerald-600` -> `text-orange-500` (white bg button on dark section)
+
+### 17. `src/pages/About.tsx`
+- Hero icon: `text-emerald-500` -> `text-blue-500`
+- Story eyebrow: `text-emerald-500` -> `text-orange-500`
+- Values icon bg: `bg-emerald-50` -> `bg-blue-50`
+- Values icon color: `text-emerald-600` -> `text-blue-600`
+- Values eyebrow: `text-emerald-600` -> `text-orange-500`
+- Stats numbers: `text-emerald-400` -> `text-blue-400`
+- Stats star: `text-emerald-400 fill-emerald-400` -> `text-gold fill-gold`
+- Credentials icons: `text-emerald-500` -> `text-blue-500`
+- CTA section: `bg-emerald-500` -> `bg-slate-800`
+- CTA button: `text-emerald-600` -> `text-orange-500`
+
+### 18. `src/pages/Contact.tsx`
+- Hero section: `bg-emerald-500` -> `bg-slate-800`
+- Hero phone icon: `text-emerald-500` -> `text-blue-500`
+- Form focus borders: `focus:border-emerald-500` -> `focus:border-blue-500`
+- Submit button: `bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700` -> `bg-orange-500 hover:bg-orange-600 active:bg-orange-700`
+- Success icon bg: `bg-emerald-100` -> `bg-blue-100`
+- Success icon: `text-emerald-600` -> `text-blue-600`
+- Success heading: `text-emerald-600` -> `text-blue-600`
+- Success link: `text-emerald-500` -> `text-blue-500`
+- Sidebar icons: `text-emerald-500` -> `text-blue-500`
+- Sidebar hover: `hover:text-emerald-600` -> `hover:text-blue-600`
+- Social hover: `hover:text-emerald-500` -> `hover:text-blue-500`
+- Response badge: `bg-emerald-50 border-emerald-200` -> `bg-blue-50 border-blue-200`
+- Response badge icon: `text-emerald-500` -> `text-blue-500`
+- Service areas tags: `bg-emerald-50 border-emerald-100` -> `bg-slate-50 border-slate-200`
+- Service areas CheckCircle: KEEP green
+
+---
+
+## Where Green IS Kept (emerald-500 only)
+
+These are the ONLY places green remains:
+- `CheckCircle` icons next to feature lists (Services page, Service Areas)
+- `CheckCircle` icons in homepage Service Areas section
+- These are small (h-4 w-4) indicators -- exactly the valid use case
+
+---
+
+## No New Dependencies
+
+All changes use existing Tailwind classes (blue, orange, slate are built-in).
 
