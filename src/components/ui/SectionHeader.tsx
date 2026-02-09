@@ -13,7 +13,7 @@ export function SectionHeader({ eyebrow, title, subtitle, centered = true, light
   return (
     <div className={cn("mb-14 lg:mb-20", centered && "text-center", className)}>
       {eyebrow && (
-        <span className={cn("text-eyebrow mb-3 block", light ? "text-emerald-400" : "text-emerald-600")}>
+        <span className={cn("text-eyebrow mb-3 block", light ? "text-blue-400" : "text-orange-500")}>
           {eyebrow}
         </span>
       )}

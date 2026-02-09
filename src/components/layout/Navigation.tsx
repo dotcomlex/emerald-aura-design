@@ -43,9 +43,9 @@ export function Navigation() {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`relative text-[15px] font-medium transition-colors py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-emerald-500 after:origin-left after:transition-transform after:duration-300 ${
+                className={`relative text-[15px] font-medium transition-colors py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-500 after:origin-left after:transition-transform after:duration-300 ${
                   location.pathname === link.href
-                    ? `${isScrolled ? "text-emerald-600" : "text-emerald-400"} after:scale-x-100`
+                    ? `${isScrolled ? "text-blue-600" : "text-blue-400"} after:scale-x-100`
                     : `${isScrolled ? "text-charcoal-700 hover:text-charcoal" : "text-white/80 hover:text-white"} after:scale-x-0 hover:after:scale-x-100`
                 }`}
               >
@@ -65,7 +65,7 @@ export function Navigation() {
             </a>
             <Link
               to="/contact"
-              className="bg-emerald-500 text-white px-6 py-2.5 rounded-lg font-semibold text-[15px] hover:bg-emerald-600 transition-all hover:scale-[1.02] shadow-glow-emerald"
+              className="bg-orange-500 text-white px-6 py-2.5 rounded-lg font-semibold text-[15px] hover:bg-orange-600 transition-all hover:scale-[1.02] shadow-glow-orange"
             >
               Free Estimate
             </Link>
@@ -119,7 +119,7 @@ export function Navigation() {
                     to={link.href}
                     onClick={() => setMobileOpen(false)}
                     className={`text-2xl font-heading font-semibold ${
-                      location.pathname === link.href ? "text-emerald-400" : "text-white"
+                      location.pathname === link.href ? "text-blue-400" : "text-white"
                     }`}
                   >
                     {link.name}
@@ -131,7 +131,7 @@ export function Navigation() {
                 <Link
                   to="/contact"
                   onClick={() => setMobileOpen(false)}
-                  className="bg-emerald-500 text-white w-full max-w-xs py-4 rounded-xl font-semibold text-center hover:bg-emerald-600 transition-colors"
+                  className="bg-orange-500 text-white w-full max-w-xs py-4 rounded-xl font-semibold text-center hover:bg-orange-600 transition-colors"
                 >
                   Get Free Estimate
                 </Link>
@@ -139,7 +139,7 @@ export function Navigation() {
                   href={COMPANY.phoneLink}
                   className="flex items-center gap-3 text-white font-medium mt-2"
                 >
-                  <Phone className="h-5 w-5 text-emerald-400" />
+                  <Phone className="h-5 w-5 text-blue-400" />
                   {COMPANY.phone}
                 </a>
                 <a href={COMPANY.emailLink} className="text-charcoal-400 text-sm">

@@ -19,10 +19,10 @@ export function Footer() {
               Denver&apos;s premier painting professionals. Delivering flawless finishes and exceptional service for over {COMPANY.yearsExperience} years.
             </p>
             <div className="flex gap-3 mt-4">
-              <a href={COMPANY.social.facebook} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-emerald-500/20 transition-colors">
+              <a href={COMPANY.social.facebook} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-blue-500/20 transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href={COMPANY.social.instagram} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-emerald-500/20 transition-colors">
+              <a href={COMPANY.social.instagram} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-blue-500/20 transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -34,7 +34,7 @@ export function Footer() {
             <ul className="space-y-2">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-charcoal-400 hover:text-emerald-400 text-sm transition-colors">
+                  <Link to={link.href} className="text-charcoal-400 hover:text-blue-400 text-sm transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -57,12 +57,12 @@ export function Footer() {
             <h3 className="font-heading font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-3">
               <li>
-                <a href={COMPANY.phoneLink} className="flex items-center gap-2 text-charcoal-400 hover:text-emerald-400 text-sm transition-colors">
+                <a href={COMPANY.phoneLink} className="flex items-center gap-2 text-charcoal-400 hover:text-blue-400 text-sm transition-colors">
                   <Phone className="h-4 w-4 flex-shrink-0" /> {COMPANY.phone}
                 </a>
               </li>
               <li>
-                <a href={COMPANY.emailLink} className="flex items-center gap-2 text-charcoal-400 hover:text-emerald-400 text-sm transition-colors">
+                <a href={COMPANY.emailLink} className="flex items-center gap-2 text-charcoal-400 hover:text-blue-400 text-sm transition-colors">
                   <Mail className="h-4 w-4 flex-shrink-0" /> {COMPANY.email}
                 </a>
               </li>

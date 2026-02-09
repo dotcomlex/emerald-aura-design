@@ -27,12 +27,12 @@ export function ProcessSteps() {
             {steps.map(({ num, icon: Icon, title, desc }) => (
               <AnimatedSection key={num} delay={num * 0.1}>
                 <div className="relative flex gap-4">
-                  <div className="absolute -left-10 w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-lg flex-shrink-0 z-10">
+                  <div className="absolute -left-10 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg flex-shrink-0 z-10">
                     {num}
                   </div>
                   <div className="ml-6">
                     <h3 className="font-heading font-semibold text-charcoal text-lg">{title}</h3>
-                    <Icon className="h-5 w-5 text-emerald-500 mt-2" />
+                    <Icon className="h-5 w-5 text-blue-500 mt-2" />
                     <p className="text-charcoal-500 text-[15px] leading-relaxed mt-2">{desc}</p>
                   </div>
                 </div>
@@ -50,11 +50,11 @@ export function ProcessSteps() {
               {steps.map(({ num, icon: Icon, title, desc }) => (
                 <AnimatedSection key={num} delay={num * 0.1}>
                   <div className="text-center bg-white rounded-2xl p-6 shadow-soft relative z-10">
-                    <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-lg mx-auto">
+                    <div className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg mx-auto">
                       {num}
                     </div>
                     <h3 className="font-heading font-semibold text-charcoal mt-4">{title}</h3>
-                    <Icon className="h-5 w-5 text-emerald-500 mx-auto mt-2" />
+                    <Icon className="h-5 w-5 text-blue-500 mx-auto mt-2" />
                     <p className="text-charcoal-500 text-sm leading-relaxed mt-2">{desc}</p>
                   </div>
                 </AnimatedSection>

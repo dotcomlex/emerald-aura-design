@@ -19,7 +19,7 @@ export function Hero() {
             variants={heroSequence.eyebrow}
             initial="hidden"
             animate="visible"
-            className="text-eyebrow text-emerald-400 block mb-4"
+            className="text-eyebrow text-blue-400 block mb-4"
           >
             Denver&apos;s Trusted Painting Professionals
           </motion.span>
@@ -32,7 +32,7 @@ export function Hero() {
           >
             Flawless Finishes.
             <br />
-            <span className="text-emerald-400">Lasting Impressions.</span>
+            <span className="text-blue-400">Lasting Impressions.</span>
           </motion.h1>
 
           <motion.p
@@ -52,7 +52,7 @@ export function Hero() {
           >
             <Link
               to="/contact"
-              className="bg-emerald-700 text-white px-8 py-4 rounded-xl font-semibold text-lg text-center hover:bg-emerald-800 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-glow-emerald w-full sm:w-auto"
+              className="bg-orange-500 text-white px-8 py-4 rounded-xl font-semibold text-lg text-center hover:bg-orange-600 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-glow-orange w-full sm:w-auto"
             >
               Get Your Free Estimate
             </Link>
@@ -72,8 +72,8 @@ export function Hero() {
           >
             {[
               { icon: Star, label: "5.0 Rating", iconClass: "text-gold" },
-              { icon: Shield, label: "Licensed & Insured", iconClass: "text-emerald-400" },
-              { icon: MapPin, label: "Locally Owned", iconClass: "text-emerald-400" },
+              { icon: Shield, label: "Licensed & Insured", iconClass: "text-blue-400" },
+              { icon: MapPin, label: "Locally Owned", iconClass: "text-blue-400" },
             ].map(({ icon: Icon, label, iconClass }) => (
               <div
                 key={label}

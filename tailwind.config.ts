@@ -110,6 +110,8 @@ export default {
         elevated: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
         "glow-emerald": "0 0 30px -5px rgba(16, 185, 129, 0.4)",
         "glow-emerald-strong": "0 4px 20px rgba(16, 185, 129, 0.5)",
+        "glow-orange": "0 0 30px -5px rgba(249, 115, 22, 0.4)",
+        "glow-orange-strong": "0 4px 20px rgba(249, 115, 22, 0.5)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -134,8 +136,8 @@ export default {
           "50%": { transform: "translateY(-10px)" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 4px 20px rgba(16, 185, 129, 0.5)" },
-          "50%": { boxShadow: "0 4px 30px rgba(16, 185, 129, 0.8)" },
+          "0%, 100%": { boxShadow: "0 4px 20px rgba(249, 115, 22, 0.5)" },
+          "50%": { boxShadow: "0 4px 30px rgba(249, 115, 22, 0.8)" },
         },
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(30px)" },

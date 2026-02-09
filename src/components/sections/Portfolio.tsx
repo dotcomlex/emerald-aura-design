@@ -118,7 +118,7 @@ export function Portfolio() {
           <div className="text-center mt-10">
             <Link
               to="/contact"
-              className="inline-block bg-emerald-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-emerald-600 transition-colors shadow-glow-emerald"
+              className="inline-block bg-orange-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-orange-600 transition-colors shadow-glow-orange"
             >
               Get a Free Estimate
             </Link>

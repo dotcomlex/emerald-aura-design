@@ -64,7 +64,7 @@ const REFERRAL_OPTIONS = [
 ];
 
 const inputClass =
-  "w-full h-[52px] bg-charcoal-50 border-2 border-transparent rounded-xl px-4 text-base text-charcoal focus:border-emerald-500 focus:bg-white outline-none placeholder:text-charcoal-400 transition-all duration-200";
+  "w-full h-[52px] bg-charcoal-50 border-2 border-transparent rounded-xl px-4 text-base text-charcoal focus:border-blue-500 focus:bg-white outline-none placeholder:text-charcoal-400 transition-all duration-200";
 const selectClass = inputClass + " appearance-none cursor-pointer";
 const labelClass = "block text-charcoal-700 text-sm font-medium mb-1.5";
 const errorInputClass = "!border-red-500";
@@ -94,7 +94,6 @@ const Contact = () => {
     if (!validate()) return;
     setStatus("loading");
     try {
-      // Ready for webhook integration
       console.log("Form submitted:", form);
       await new Promise((r) => setTimeout(r, 1200));
       setStatus("success");
@@ -108,10 +107,10 @@ const Contact = () => {
       <Navigation />
       <main>
         {/* Section 1 - Hero */}
-        <section className="bg-emerald-500 pt-24 pb-12 lg:pt-32 lg:pb-16 text-center">
+        <section className="bg-slate-800 pt-24 pb-12 lg:pt-32 lg:pb-16 text-center">
           <div className="container-max px-6 flex flex-col items-center">
             <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center">
-              <Phone className="h-7 w-7 text-emerald-500" />
+              <Phone className="h-7 w-7 text-blue-500" />
             </div>
             <h1 className="mt-5 text-4xl lg:text-5xl font-bold font-heading text-white">Let's Talk</h1>
             <p className="mt-3 text-white/90 text-base lg:text-lg max-w-[320px] lg:max-w-md">
@@ -128,16 +127,16 @@ const Contact = () => {
               <AnimatedSection className="lg:w-[60%]">
                 {status === "success" ? (
                   <div className="text-center py-16">
-                    <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto">
-                      <CheckCircle className="h-8 w-8 text-emerald-600" />
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                      <CheckCircle className="h-8 w-8 text-blue-600" />
                     </div>
-                    <h2 className="mt-4 text-emerald-600 text-[28px] font-bold font-heading">Thank You!</h2>
+                    <h2 className="mt-4 text-blue-600 text-[28px] font-bold font-heading">Thank You!</h2>
                     <p className="mt-3 text-charcoal-500 text-base max-w-sm mx-auto">
                       We've received your request and will be in touch within 24 hours.
                     </p>
                     <p className="mt-4 text-charcoal-500 text-base">
                       For immediate assistance, call us at{" "}
-                      <a href={COMPANY.phoneLink} className="text-emerald-500 underline font-medium">{COMPANY.phone}</a>.
+                      <a href={COMPANY.phoneLink} className="text-blue-500 underline font-medium">{COMPANY.phone}</a>.
                     </p>
                   </div>
                 ) : (
@@ -145,25 +144,21 @@ const Contact = () => {
                     <h2 className="text-2xl font-bold font-heading text-charcoal">Request Your Free Estimate</h2>
                     <p className="mt-2 text-charcoal-500 text-[15px]">Fill out the form below and we'll get back to you within 24 hours.</p>
                     <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
-                      {/* Name */}
                       <div>
                         <label className={labelClass}>Your Name</label>
                         <input type="text" placeholder="John Smith" value={form.name} onChange={set("name")} className={`${inputClass} ${errors.name ? errorInputClass : ""}`} />
                         {errors.name && <p className="text-red-500 text-[13px] mt-1">{errors.name}</p>}
                       </div>
-                      {/* Phone */}
                       <div>
                         <label className={labelClass}>Phone Number</label>
                         <input type="tel" placeholder="(720) 555-1234" value={form.phone} onChange={set("phone")} className={`${inputClass} ${errors.phone ? errorInputClass : ""}`} />
                         {errors.phone && <p className="text-red-500 text-[13px] mt-1">{errors.phone}</p>}
                       </div>
-                      {/* Email */}
                       <div>
                         <label className={labelClass}>Email Address</label>
                         <input type="email" placeholder="john@example.com" value={form.email} onChange={set("email")} className={`${inputClass} ${errors.email ? errorInputClass : ""}`} />
                         {errors.email && <p className="text-red-500 text-[13px] mt-1">{errors.email}</p>}
                       </div>
-                      {/* Service */}
                       <div>
                         <label className={labelClass}>What service are you interested in?</label>
                         <select value={form.service} onChange={set("service")} className={`${selectClass} ${errors.service ? errorInputClass : ""}`}>
@@ -172,7 +167,6 @@ const Contact = () => {
                         </select>
                         {errors.service && <p className="text-red-500 text-[13px] mt-1">{errors.service}</p>}
                       </div>
-                      {/* Timeline */}
                       <div>
                         <label className={labelClass}>When are you looking to start?</label>
                         <select value={form.timeline} onChange={set("timeline")} className={selectClass}>
@@ -180,7 +174,6 @@ const Contact = () => {
                           {TIMELINE_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                         </select>
                       </div>
-                      {/* Message */}
                       <div>
                         <label className={labelClass}>Tell us about your project</label>
                         <textarea
@@ -188,10 +181,9 @@ const Contact = () => {
                           placeholder="Describe your project, including approximate size, surfaces to be painted, any specific concerns..."
                           value={form.message}
                           onChange={set("message")}
-                          className="w-full bg-charcoal-50 border-2 border-transparent rounded-xl p-4 text-base text-charcoal focus:border-emerald-500 focus:bg-white outline-none placeholder:text-charcoal-400 transition-all duration-200 resize-y min-h-[120px]"
+                          className="w-full bg-charcoal-50 border-2 border-transparent rounded-xl p-4 text-base text-charcoal focus:border-blue-500 focus:bg-white outline-none placeholder:text-charcoal-400 transition-all duration-200 resize-y min-h-[120px]"
                         />
                       </div>
-                      {/* Referral */}
                       <div>
                         <label className={labelClass}>How did you hear about us?</label>
                         <select value={form.referral} onChange={set("referral")} className={selectClass}>
@@ -200,7 +192,6 @@ const Contact = () => {
                         </select>
                       </div>
 
-                      {/* Error alert */}
                       {status === "error" && (
                         <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-3 flex items-center gap-2 text-sm">
                           <AlertTriangle className="h-5 w-5 flex-shrink-0" />
@@ -208,11 +199,10 @@ const Contact = () => {
                         </div>
                       )}
 
-                      {/* Submit */}
                       <button
                         type="submit"
                         disabled={status === "loading"}
-                        className="w-full h-14 bg-emerald-500 text-white rounded-xl font-semibold text-base flex items-center justify-center gap-2 hover:bg-emerald-600 active:bg-emerald-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+                        className="w-full h-14 bg-orange-500 text-white rounded-xl font-semibold text-base flex items-center justify-center gap-2 hover:bg-orange-600 active:bg-orange-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed mt-2"
                       >
                         {status === "loading" ? (
                           <><Loader2 className="h-5 w-5 animate-spin" /> Sending...</>
@@ -232,45 +222,40 @@ const Contact = () => {
               {/* Info Sidebar */}
               <AnimatedSection delay={0.15} className="mt-12 pt-12 border-t border-charcoal-200 lg:mt-0 lg:pt-0 lg:border-t-0 lg:w-[40%] lg:sticky lg:top-24 lg:self-start">
                 <div className="space-y-8">
-                  {/* Phone */}
                   <div className="flex gap-4">
-                    <Phone className="h-6 w-6 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    <Phone className="h-6 w-6 text-blue-500 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-charcoal-700 text-sm font-medium">Call Us Anytime</p>
-                      <a href={COMPANY.phoneLink} className="text-charcoal text-xl font-bold block mt-1 hover:text-emerald-600 transition-colors">{COMPANY.phone}</a>
+                      <a href={COMPANY.phoneLink} className="text-charcoal text-xl font-bold block mt-1 hover:text-blue-600 transition-colors">{COMPANY.phone}</a>
                       <p className="text-charcoal-500 text-sm mt-1">Mon-Sat: {COMPANY.hours.weekday}</p>
                     </div>
                   </div>
-                  {/* Email */}
                   <div className="flex gap-4">
-                    <Mail className="h-6 w-6 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    <Mail className="h-6 w-6 text-blue-500 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-charcoal-700 text-sm font-medium">Email Us</p>
-                      <a href={COMPANY.emailLink} className="text-charcoal font-semibold block mt-1 hover:text-emerald-600 transition-colors break-all">{COMPANY.email}</a>
+                      <a href={COMPANY.emailLink} className="text-charcoal font-semibold block mt-1 hover:text-blue-600 transition-colors break-all">{COMPANY.email}</a>
                       <p className="text-charcoal-500 text-sm mt-1">We respond within 24 hours</p>
                     </div>
                   </div>
-                  {/* Location */}
                   <div className="flex gap-4">
-                    <MapPin className="h-6 w-6 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    <MapPin className="h-6 w-6 text-blue-500 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-charcoal font-semibold">Based in Commerce City</p>
                       <p className="text-charcoal-500 text-sm">Serving the Denver Metro Area</p>
                     </div>
                   </div>
 
-                  {/* Social */}
                   <div>
                     <p className="text-charcoal-700 text-sm font-medium mb-3">Follow Us</p>
                     <div className="flex gap-3">
-                      <a href={COMPANY.social.facebook} target="_blank" rel="noopener noreferrer" className="text-charcoal-400 hover:text-emerald-500 transition-colors"><Facebook className="h-8 w-8" /></a>
-                      <a href={COMPANY.social.instagram} target="_blank" rel="noopener noreferrer" className="text-charcoal-400 hover:text-emerald-500 transition-colors"><Instagram className="h-8 w-8" /></a>
+                      <a href={COMPANY.social.facebook} target="_blank" rel="noopener noreferrer" className="text-charcoal-400 hover:text-blue-500 transition-colors"><Facebook className="h-8 w-8" /></a>
+                      <a href={COMPANY.social.instagram} target="_blank" rel="noopener noreferrer" className="text-charcoal-400 hover:text-blue-500 transition-colors"><Instagram className="h-8 w-8" /></a>
                     </div>
                   </div>
 
-                  {/* Response badge */}
-                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-3">
-                    <Clock className="h-6 w-6 text-emerald-500 flex-shrink-0" />
+                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center gap-3">
+                    <Clock className="h-6 w-6 text-blue-500 flex-shrink-0" />
                     <p className="text-charcoal-700 text-sm">We typically respond within 2 hours during business hours!</p>
                   </div>
                 </div>
@@ -311,7 +296,7 @@ const Contact = () => {
             <div className="grid grid-cols-2 gap-3 mt-6 max-w-lg mx-auto">
               {SERVICE_AREAS.map((area, i) => (
                 <AnimatedSection key={area} delay={i * 0.03}>
-                  <div className="flex items-center justify-center gap-2 bg-emerald-50 border border-emerald-100 rounded-lg py-3 px-4">
+                  <div className="flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 rounded-lg py-3 px-4">
                     <CheckCircle className="h-4 w-4 text-emerald-500 flex-shrink-0" />
                     <span className="text-charcoal-700 text-sm font-medium">{area}</span>
                   </div>

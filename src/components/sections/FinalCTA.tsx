@@ -14,7 +14,7 @@ export function FinalCTA() {
       <div className="relative z-10 container-max text-center px-6 py-12">
         <AnimatedSection>
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-emerald-500 text-white px-4 py-2 rounded-full text-[13px] font-semibold">
+          <div className="inline-flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-full text-[13px] font-semibold">
             <MessageCircle className="h-4 w-4" />
             Let&apos;s Talk
           </div>
@@ -28,7 +28,7 @@ export function FinalCTA() {
 
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 bg-emerald-500 text-white px-10 py-4 rounded-xl font-semibold text-lg hover:bg-emerald-600 transition-all hover:gap-3 shadow-glow-emerald mt-8"
+            className="inline-flex items-center gap-2 bg-orange-500 text-white px-10 py-4 rounded-xl font-semibold text-lg hover:bg-orange-600 transition-all hover:gap-3 shadow-glow-orange mt-8"
           >
             Get Your Free Estimate <ChevronRight className="h-5 w-5" />
           </Link>
