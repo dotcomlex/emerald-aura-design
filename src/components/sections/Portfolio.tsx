@@ -1,10 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { useDragRotation } from "@/hooks/useDragRotation";
 import portfolioKitchen from "@/assets/images/portfolio-kitchen.jpg";
 import portfolioExterior from "@/assets/images/service-exterior.jpg";
 import portfolioLivingroom from "@/assets/images/portfolio-livingroom.jpg";
@@ -26,153 +23,183 @@ const portfolioItems = [
 ];
 
 export function Portfolio() {
-  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [rotation, setRotation] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
-  const { rotation, isDragging, setRotation, handlers } = useDragRotation(0.5);
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
+
   const total = portfolioItems.length;
   const angleStep = 360 / total;
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-  const radius = isMobile ? 300 : 480;
-  const cardW = isMobile ? 240 : 340;
-  const cardH = isMobile ? 320 : 420;
 
   // Auto-rotation
   useEffect(() => {
-    if (isDragging || isHovering || lightbox !== null) return;
+    if (isHovering || lightbox !== null) return;
     const interval = setInterval(() => {
-      setRotation((r) => r + 0.06);
-    }, 16); // ~60fps, full rotation in ~60s
+      setRotation(prev => prev + angleStep);
+      setActiveIndex(prev => (prev + 1) % total);
+    }, 4000);
     return () => clearInterval(interval);
-  }, [isDragging, isHovering, lightbox, setRotation]);
+  }, [isHovering, lightbox, angleStep, total]);
+
+  const goNext = useCallback(() => {
+    setRotation(prev => prev + angleStep);
+    setActiveIndex(prev => (prev + 1) % total);
+  }, [angleStep, total]);
+
+  const goPrev = useCallback(() => {
+    setRotation(prev => prev - angleStep);
+    setActiveIndex(prev => (prev - 1 + total) % total);
+  }, [angleStep, total]);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.touches[0].clientX;
+    if (diff > 50) { goNext(); touchStartX.current = null; }
+    if (diff < -50) { goPrev(); touchStartX.current = null; }
+  }, [goNext, goPrev]);
+
+  const handleTouchEnd = useCallback(() => { touchStartX.current = null; }, []);
+
+  // Normalize angle difference to [-180, 180]
+  const normalizeAngle = (a: number) => ((a % 360) + 540) % 360 - 180;
 
   return (
-    <section
-      className="overflow-hidden"
-      style={{
-        background: "linear-gradient(180deg, #0a1628 0%, #0d1f3c 50%, #0a0f1a 100%)",
-        padding: "80px 0",
-      }}
-    >
-      <div className="container-max px-6">
-        <SectionHeader
-          eyebrow="Our Work"
-          title="Work That Speaks For Itself"
-          subtitle="A quick look at recent projects across Colorado."
-          light
-        />
-        <AnimatedSection>
-          <div
-            className="relative mx-auto"
-            style={{
-              height: `${cardH + 140}px`,
-              cursor: isDragging ? "grabbing" : "grab",
-              perspective: "1200px",
-              marginTop: "48px",
-            }}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-            {...handlers}
-          >
-            <div
-              className="relative w-full h-full"
-              style={{
-                transformStyle: "preserve-3d",
-                transform: `rotateY(${rotation}deg)`,
-                transition: isDragging ? "none" : "transform 0.1s linear",
-              }}
-            >
-              {portfolioItems.map((item, i) => {
-                const angle = i * angleStep;
-                return (
-                  <div
-                    key={item.id}
-                    className="absolute top-1/2 left-1/2 cursor-pointer"
-                    style={{
-                      width: `${cardW}px`,
-                      height: `${cardH}px`,
-                      marginTop: `${-cardH / 2}px`,
-                      marginLeft: `${-cardW / 2}px`,
-                      transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                      backfaceVisibility: "hidden",
-                    }}
-                    onClick={() => !isDragging && setLightbox(item.id)}
-                  >
-                    <div className="h-full rounded-2xl bg-white shadow-elevated overflow-hidden relative">
-                      <img src={item.image} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
-                      {/* Gradient text overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                        <h3 className="text-white font-heading font-semibold text-lg">{item.title}</h3>
-                        <p className="text-white/80 text-sm mt-1">{item.location}</p>
-                        <p className="text-white/50 text-xs mt-2">Emerald Paints</p>
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Background decorations */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-800/30 to-slate-900/50" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+
+      <div className="relative flex flex-col items-center pt-16 pb-12 px-4 md:py-16">
+        {/* Header */}
+        <div className="text-center mb-2 md:mb-16 relative z-40">
+          <span className="inline-block text-orange-500 font-semibold text-xs md:text-sm tracking-widest uppercase mb-2">
+            OUR WORK
+          </span>
+          <h2 className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+            Work That Speaks For Itself
+          </h2>
+          <p className="text-white/70 text-sm md:text-base max-w-md mx-auto">
+            A quick look at recent projects across Colorado.
+          </p>
+        </div>
+
+        {/* 3D Carousel */}
+        <div
+          className="relative w-full max-w-5xl mx-auto h-[340px] sm:h-[420px] md:h-[480px] perspective-1000"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="relative w-full h-full preserve-3d" style={{ transformStyle: "preserve-3d" }}>
+            {portfolioItems.map((item, index) => {
+              const angle = index * angleStep;
+              const diff = normalizeAngle(angle - rotation);
+              const isFront = Math.abs(diff) < 90;
+              const isActive = index === activeIndex;
+
+              return (
+                <div
+                  key={item.id}
+                  className="absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 cursor-pointer"
+                  style={{
+                    transform: `translate(-50%, -50%) rotateY(${diff}deg) translateZ(280px) scale(${isActive ? 1.05 : 0.9})`,
+                    opacity: isFront ? 1 : 0.3,
+                    transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s ease",
+                    backfaceVisibility: "hidden",
+                    zIndex: isActive ? 20 : 10,
+                  }}
+                  onClick={() => setLightbox(item.id)}
+                >
+                  <div className="w-full h-full bg-white rounded-2xl overflow-hidden shadow-2xl transform-gpu">
+                    <div className="relative h-full">
+                      <img src={item.image} alt={item.title} loading="lazy" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute bottom-6 left-6 right-6">
+                        <h3 className="text-white font-bold text-lg md:text-xl mb-1">{item.title}</h3>
+                        <p className="text-white/80 text-sm mb-2">{item.location}</p>
+                        <p className="text-white/60 text-xs">Emerald Paints</p>
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
-          <p className="text-center text-white/40 text-sm mt-8">
+        </div>
+
+        {/* Instruction text */}
+        <div className="text-center mt-2 md:mt-16 relative z-40">
+          <p className="text-white/40 text-xs md:text-sm tracking-wide">
             Auto-rotates • Swipe left or right to explore • Tap any photo to view
           </p>
-          <div className="text-center mt-10">
-            <Link
-              to="/contact"
-              className="inline-block bg-orange-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-orange-600 transition-colors shadow-glow-orange"
-            >
-              Get a Free Estimate
-            </Link>
-          </div>
-        </AnimatedSection>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-6 relative z-40">
+          <Link
+            to="/contact"
+            className="inline-flex items-center bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-base font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+          >
+            Get a Free Estimate
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+        </div>
       </div>
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightbox !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-6"
-            onClick={() => setLightbox(null)}
-          >
-            <button className="absolute top-6 right-6 text-white" onClick={() => setLightbox(null)}>
-              <X className="h-8 w-8" />
-            </button>
-            {(() => {
-              const item = portfolioItems.find((p) => p.id === lightbox);
-              if (!item) return null;
-              const idx = portfolioItems.indexOf(item);
-              return (
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.9, opacity: 0 }}
-                  className="relative max-w-lg w-full"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="mt-4 text-center">
-                    <h3 className="text-white text-xl font-heading font-bold">{item.title}</h3>
-                    <p className="text-charcoal-400">{item.location} • {item.category}</p>
-                  </div>
-                  <div className="absolute top-1/2 -left-12 -translate-y-1/2">
-                    <button onClick={(e) => { e.stopPropagation(); setLightbox(portfolioItems[(idx - 1 + total) % total].id); }} className="text-white/60 hover:text-white">
-                      <ChevronLeft className="h-8 w-8" />
-                    </button>
-                  </div>
-                  <div className="absolute top-1/2 -right-12 -translate-y-1/2">
-                    <button onClick={(e) => { e.stopPropagation(); setLightbox(portfolioItems[(idx + 1) % total].id); }} className="text-white/60 hover:text-white">
-                      <ChevronRight className="h-8 w-8" />
-                    </button>
-                  </div>
-                </motion.div>
-              );
-            })()}
-          </motion.div>
-        )}
+        {lightbox !== null && (() => {
+          const item = portfolioItems.find(p => p.id === lightbox);
+          if (!item) return null;
+          const idx = portfolioItems.indexOf(item);
+          return (
+            <motion.div
+              key="lightbox"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-6"
+              onClick={() => setLightbox(null)}
+            >
+              <button className="absolute top-6 right-6 text-white" onClick={() => setLightbox(null)}>
+                <X className="h-8 w-8" />
+              </button>
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="relative max-w-lg w-full"
+                onClick={e => e.stopPropagation()}
+              >
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden">
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                </div>
+                <div className="mt-4 text-center">
+                  <h3 className="text-white text-xl font-heading font-bold">{item.title}</h3>
+                  <p className="text-slate-400">{item.location} • {item.category}</p>
+                </div>
+                <div className="absolute top-1/2 -left-12 -translate-y-1/2">
+                  <button onClick={e => { e.stopPropagation(); setLightbox(portfolioItems[(idx - 1 + total) % total].id); }} className="text-white/60 hover:text-white">
+                    <ChevronLeft className="h-8 w-8" />
+                  </button>
+                </div>
+                <div className="absolute top-1/2 -right-12 -translate-y-1/2">
+                  <button onClick={e => { e.stopPropagation(); setLightbox(portfolioItems[(idx + 1) % total].id); }} className="text-white/60 hover:text-white">
+                    <ChevronRight className="h-8 w-8" />
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          );
+        })()}
       </AnimatePresence>
     </section>
   );
