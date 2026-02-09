@@ -44,7 +44,7 @@ const About = () => {
             height: "45vh",
             minHeight: 350,
             maxHeight: 450,
-            background: "linear-gradient(135deg, #047857 0%, #0d1f3c 100%)",
+            background: "linear-gradient(135deg, #0f172a 0%, #0d1f3c 100%)",
           }}
         >
           <img src={heroAbout} alt="Emerald Paints team working together" loading="eager" className="absolute inset-0 w-full h-full object-cover" />
@@ -94,7 +94,7 @@ const About = () => {
         </section>
 
         {/* Section 3 - Our Values */}
-        <section className="py-16 lg:py-24 bg-emerald-50">
+        <section className="py-16 lg:py-24 bg-[#fafafa]">
           <div className="container-max px-6">
             <AnimatedSection className="text-center mb-10 lg:mb-16">
               <span className="text-emerald-600 text-xs font-semibold uppercase tracking-widest">WHAT WE STAND FOR</span>
@@ -105,7 +105,7 @@ const About = () => {
               {values.map(({ icon: Icon, title, desc }, i) => (
                 <AnimatedSection key={title} delay={i * 0.08}>
                   <div className="bg-white rounded-2xl p-7 text-center shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <div className="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
+                    <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto">
                       <Icon className="h-7 w-7 text-emerald-600" />
                     </div>
                     <h3 className="mt-4 font-heading font-semibold text-lg text-charcoal">{title}</h3>
@@ -118,7 +118,7 @@ const About = () => {
         </section>
 
         {/* Section 4 - By The Numbers */}
-        <section className="py-12 lg:py-16 bg-charcoal">
+        <section className="py-12 lg:py-16 bg-[#0f172a]">
           <div className="container-max px-6">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {stats.map(({ value, label, hasStar }, i) => (

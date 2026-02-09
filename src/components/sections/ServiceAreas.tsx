@@ -17,7 +17,7 @@ export function ServiceAreas() {
             {SERVICE_AREAS.map((area) => (
               <div
                 key={area}
-                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-emerald-50 border border-emerald-100"
+                className="flex items-center gap-2 px-4 py-3 rounded-lg bg-gray-50 border border-gray-200"
               >
                 <CheckCircle className="h-4 w-4 text-emerald-500 flex-shrink-0" />
                 <span className="text-charcoal-700 font-medium text-sm">{area}</span>

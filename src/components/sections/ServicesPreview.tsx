@@ -29,7 +29,7 @@ const featured = [
 
 export function ServicesPreview() {
   return (
-    <section className="section-padding bg-cream">
+    <section className="section-padding bg-white">
       <div className="container-max">
         <SectionHeader
           eyebrow="What We Do"
@@ -39,7 +39,7 @@ export function ServicesPreview() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {featured.map(({ icon: Icon, title, desc, image }, i) => (
             <AnimatedSection key={title} delay={i * 0.1}>
-              <div className="group bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-300 hover:-translate-y-2">
+              <div className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-soft hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
                 <div className="aspect-[16/10] overflow-hidden">
                   <img src={image} alt={title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>

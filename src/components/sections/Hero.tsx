@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center bg-charcoal overflow-hidden" style={{ minHeight: "700px" }}>
       {/* Background image with gradient fallback */}
-      <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-navy-light to-emerald-900/30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#0d1f3c] to-[#0f172a]" />
       <img src={heroHomepage} alt="Professional exterior house painting in Denver, Colorado" loading="eager" className="absolute inset-0 w-full h-full object-cover" />
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70 lg:bg-gradient-to-r lg:from-black/75 lg:via-black/40 lg:to-black/20" />
@@ -52,7 +52,7 @@ export function Hero() {
           >
             <Link
               to="/contact"
-              className="bg-emerald-500 text-white px-8 py-4 rounded-xl font-semibold text-lg text-center hover:bg-emerald-600 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-glow-emerald w-full sm:w-auto"
+              className="bg-emerald-700 text-white px-8 py-4 rounded-xl font-semibold text-lg text-center hover:bg-emerald-800 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-glow-emerald w-full sm:w-auto"
             >
               Get Your Free Estimate
             </Link>

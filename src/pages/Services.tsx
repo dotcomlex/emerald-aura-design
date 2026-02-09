@@ -59,7 +59,7 @@ const Services = () => {
       <main>
         {/* ── Section 1: Services Hero ── */}
         <section className="relative h-[50vh] min-h-[400px] max-h-[500px] lg:h-[60vh] lg:max-h-[600px] overflow-hidden flex items-center justify-center">
-          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #0d1f3c 50%, #047857 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #0f172a 0%, #0d1f3c 100%)" }} />
           <img src={heroServices} alt="Professional painter working on interior wall" loading="eager" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70" />
           <div className="relative z-10 text-center px-6 pt-20">
@@ -132,7 +132,7 @@ const Services = () => {
         </section>
 
         {/* ── Section 3: Quality Commitment ── */}
-        <section className="bg-emerald-50 py-16 lg:py-24 px-6">
+        <section className="bg-[#fafafa] py-16 lg:py-24 px-6">
           <div className="max-w-[1200px] mx-auto lg:grid lg:grid-cols-[45%_55%] lg:gap-16 lg:items-center">
             <AnimatedSection>
               <div className="aspect-[4/3] rounded-[20px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.1)]">
@@ -157,7 +157,7 @@ const Services = () => {
                 {qualityPoints.map((pt, i) => (
                   <AnimatedSection key={pt.title} delay={0.15 + i * 0.05}>
                     <div className="flex gap-4 bg-white p-5 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-                      <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
                         <pt.icon className="h-6 w-6 text-emerald-600" />
                       </div>
                       <div>

@@ -31,15 +31,16 @@ export function Portfolio() {
   const { rotation, isDragging, setRotation, handlers } = useDragRotation(0.5);
   const total = portfolioItems.length;
   const angleStep = 360 / total;
-  const radius = typeof window !== "undefined" && window.innerWidth < 768 ? 250 : 400;
-  const cardW = typeof window !== "undefined" && window.innerWidth < 768 ? 280 : 400;
-  const cardH = typeof window !== "undefined" && window.innerWidth < 768 ? 350 : 450;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const radius = isMobile ? 300 : 480;
+  const cardW = isMobile ? 240 : 340;
+  const cardH = isMobile ? 320 : 420;
 
   // Auto-rotation
   useEffect(() => {
     if (isDragging || isHovering || lightbox !== null) return;
     const interval = setInterval(() => {
-      setRotation((r) => r + 0.1);
+      setRotation((r) => r + 0.06);
     }, 16); // ~60fps, full rotation in ~60s
     return () => clearInterval(interval);
   }, [isDragging, isHovering, lightbox, setRotation]);
@@ -63,7 +64,8 @@ export function Portfolio() {
           <div
             className="relative mx-auto"
             style={{
-              height: `${cardH + 100}px`,
+              height: `${cardH + 140}px`,
+              cursor: isDragging ? "grabbing" : "grab",
               perspective: "1200px",
               marginTop: "48px",
             }}
