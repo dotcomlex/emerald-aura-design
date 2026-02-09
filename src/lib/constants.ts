@@ -138,3 +138,9 @@ export const PAINT_BRANDS = [
   "PPG Paints",
   "Cabot Stains",
 ];
+
+export const CONTACT_FAQS = [
+  { question: "How quickly can you start?", answer: "Our availability varies, but we typically can start within 1-2 weeks for most projects. For urgent needs, let us know and we'll do our best to accommodate." },
+  { question: "Do you provide free estimates?", answer: "Yes! All estimates are completely free with no obligation. We'll visit your property, assess the project, and provide a detailed written quote." },
+  { question: "What's included in the estimate?", answer: "Our estimates include labor, materials, prep work, protection, and cleanup — everything you need for a complete, hassle-free experience." },
+];
