@@ -1,39 +1,66 @@
-import { MessageSquare, FileText, PaintBucket, CheckCircle2 } from "lucide-react";
+import { Calendar, ClipboardList, Paintbrush, CheckCircle } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const steps = [
-  { icon: MessageSquare, step: "01", title: "Free Consultation", desc: "Tell us about your project and we'll visit your home for a free assessment." },
-  { icon: FileText, step: "02", title: "Detailed Quote", desc: "Receive a transparent, no-surprise estimate within 24 hours." },
-  { icon: PaintBucket, step: "03", title: "Expert Painting", desc: "Our skilled team transforms your space with precision and care." },
-  { icon: CheckCircle2, step: "04", title: "Final Walkthrough", desc: "We review every detail together to ensure your complete satisfaction." },
+  { num: 1, icon: Calendar, title: "Free Consultation", desc: "Schedule your free on-site estimate. We'll assess your project and discuss your vision." },
+  { num: 2, icon: ClipboardList, title: "Detailed Proposal", desc: "Receive a clear, itemized quote with no hidden fees or surprises." },
+  { num: 3, icon: Paintbrush, title: "Expert Execution", desc: "Our skilled team completes your project with precision and care." },
+  { num: 4, icon: CheckCircle, title: "Final Walkthrough", desc: "We inspect every detail together to ensure your complete satisfaction." },
 ];
 
 export function ProcessSteps() {
   return (
-    <section className="section-padding bg-cream">
+    <section className="section-padding bg-emerald-50">
       <div className="container-max">
         <SectionHeader
-          eyebrow="How It Works"
-          title="Simple, Seamless Process"
-          subtitle="From first call to final walkthrough, we make it easy."
+          eyebrow="Our Process"
+          title="Simple Steps to Your Dream Home"
+          subtitle="We make the painting process easy, transparent, and stress-free."
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map(({ icon: Icon, step, title, desc }, i) => (
-            <AnimatedSection key={step} delay={i * 0.1}>
-              <div className="relative text-center">
-                <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-emerald-500 text-white mb-4 mx-auto">
-                  <Icon className="h-7 w-7" />
+
+        {/* Mobile: vertical timeline */}
+        <div className="lg:hidden relative mt-12 pl-10">
+          {/* Vertical line */}
+          <div className="absolute left-[23px] top-6 bottom-6 w-0.5 bg-emerald-200" />
+          <div className="flex flex-col gap-8">
+            {steps.map(({ num, icon: Icon, title, desc }) => (
+              <AnimatedSection key={num} delay={num * 0.1}>
+                <div className="relative flex gap-4">
+                  <div className="absolute -left-10 w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-lg flex-shrink-0 z-10">
+                    {num}
+                  </div>
+                  <div className="ml-6">
+                    <h3 className="font-heading font-semibold text-charcoal text-lg">{title}</h3>
+                    <Icon className="h-5 w-5 text-emerald-500 mt-2" />
+                    <p className="text-charcoal-500 text-[15px] leading-relaxed mt-2">{desc}</p>
+                  </div>
                 </div>
-                <span className="text-eyebrow text-emerald-600 block mb-1">{step}</span>
-                <h3 className="font-heading font-semibold text-charcoal mb-2">{title}</h3>
-                <p className="text-charcoal-500 text-sm leading-relaxed">{desc}</p>
-                {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 left-[calc(50%+40px)] w-[calc(100%-80px)] h-0.5 bg-emerald-200" />
-                )}
-              </div>
-            </AnimatedSection>
-          ))}
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: horizontal */}
+        <div className="hidden lg:block mt-12">
+          <div className="relative">
+            {/* Horizontal line */}
+            <div className="absolute top-6 left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-0.5 bg-emerald-200" />
+            <div className="grid grid-cols-4 gap-8">
+              {steps.map(({ num, icon: Icon, title, desc }) => (
+                <AnimatedSection key={num} delay={num * 0.1}>
+                  <div className="text-center bg-white rounded-2xl p-6 shadow-soft relative z-10">
+                    <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-lg mx-auto">
+                      {num}
+                    </div>
+                    <h3 className="font-heading font-semibold text-charcoal mt-4">{title}</h3>
+                    <Icon className="h-5 w-5 text-emerald-500 mx-auto mt-2" />
+                    <p className="text-charcoal-500 text-sm leading-relaxed mt-2">{desc}</p>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,12 +1,28 @@
 import { Link } from "react-router-dom";
-import { Home, Building, Trees, Layers, Building2, Wrench, Palette, Paintbrush } from "lucide-react";
+import { Home, Building, Palette, ChevronRight } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { SERVICES } from "@/lib/constants";
 
-const iconMap: Record<string, React.ElementType> = {
-  Home, Building, Trees, Layers, Building2, Wrench, Palette, Paintbrush,
-};
+const featured = [
+  {
+    icon: Home,
+    title: "Interior Painting",
+    desc: "Transform any room with smooth, flawless finishes and expert color matching.",
+    gradient: "from-emerald-600 to-emerald-800",
+  },
+  {
+    icon: Building,
+    title: "Exterior Painting",
+    desc: "Boost curb appeal and protect your home with weather-resistant coatings.",
+    gradient: "from-blue-600 to-blue-800",
+  },
+  {
+    icon: Palette,
+    title: "Staining & Specialty",
+    desc: "Decks, fences, cabinets, and custom finishes tailored to your vision.",
+    gradient: "from-amber-600 to-amber-800",
+  },
+];
 
 export function ServicesPreview() {
   return (
@@ -14,28 +30,47 @@ export function ServicesPreview() {
       <div className="container-max">
         <SectionHeader
           eyebrow="What We Do"
-          title="Our Services"
-          subtitle="From interior refreshes to full exterior transformations, we deliver premium results on every project."
+          title="Comprehensive Painting Solutions"
+          subtitle="From interior refreshes to complete exterior transformations, we deliver premium results on every project."
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES.map((service, i) => {
-            const Icon = iconMap[service.icon] || Home;
-            return (
-              <AnimatedSection key={service.id} delay={i * 0.05}>
-                <Link
-                  to="/services"
-                  className="group block p-6 rounded-2xl bg-white shadow-soft hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="h-12 w-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-4 group-hover:bg-emerald-500 transition-colors">
-                    <Icon className="h-6 w-6 text-emerald-600 group-hover:text-white transition-colors" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {featured.map(({ icon: Icon, title, desc, gradient }, i) => (
+            <AnimatedSection key={title} delay={i * 0.1}>
+              <div className="group bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-300 hover:-translate-y-2">
+                {/* Image placeholder */}
+                <div className={`aspect-[16/10] bg-gradient-to-br ${gradient} flex items-center justify-center`}>
+                  <span className="text-white/30 font-heading text-sm">Project Photo</span>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="h-10 w-10 rounded-full bg-emerald-50 flex items-center justify-center">
+                      <Icon className="h-5 w-5 text-emerald-600" />
+                    </div>
+                    <h3 className="font-heading font-semibold text-charcoal text-lg">{title}</h3>
                   </div>
-                  <h3 className="font-heading font-semibold text-charcoal mb-2">{service.name}</h3>
-                  <p className="text-charcoal-500 text-sm leading-relaxed">{service.shortDescription}</p>
-                </Link>
-              </AnimatedSection>
-            );
-          })}
+                  <p className="text-charcoal-500 text-[15px] leading-relaxed">{desc}</p>
+                  <Link
+                    to="/services"
+                    className="mt-4 inline-flex items-center gap-1 text-emerald-500 font-medium text-[15px] group-hover:gap-2 transition-all"
+                  >
+                    Learn More <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </AnimatedSection>
+          ))}
         </div>
+        <AnimatedSection delay={0.3}>
+          <div className="text-center mt-12">
+            <p className="text-charcoal-500 mb-4">Need commercial painting or a custom project?</p>
+            <Link
+              to="/services"
+              className="inline-block bg-emerald-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors"
+            >
+              View All Services
+            </Link>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );

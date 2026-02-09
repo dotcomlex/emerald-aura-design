@@ -4,32 +4,22 @@ import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { COMPANY } from "@/lib/constants";
 
 export function FloatingCTA() {
-  const { isScrolled } = useScrollPosition();
+  const { scrollY } = useScrollPosition();
+  const show = scrollY > 600;
 
   return (
     <AnimatePresence>
-      {isScrolled && (
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-6 left-4 right-4 z-40 lg:hidden"
+      {show && (
+        <motion.a
+          href={COMPANY.phoneLink}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          className="fixed bottom-6 right-6 z-40 lg:hidden w-[60px] h-[60px] rounded-full bg-emerald-500 flex items-center justify-center shadow-glow-emerald-strong animate-pulse-glow"
+          aria-label="Call us"
         >
-          <div className="flex gap-3">
-            <a
-              href={COMPANY.phoneLink}
-              className="flex-1 bg-charcoal text-white py-3.5 rounded-xl font-semibold text-center flex items-center justify-center gap-2 shadow-elevated"
-            >
-              <Phone className="h-5 w-5" /> Call Now
-            </a>
-            <a
-              href="/contact"
-              className="flex-1 bg-emerald-500 text-white py-3.5 rounded-xl font-semibold text-center shadow-glow-emerald animate-pulse-glow"
-            >
-              Free Quote
-            </a>
-          </div>
-        </motion.div>
+          <Phone className="h-7 w-7 text-white" />
+        </motion.a>
       )}
     </AnimatePresence>
   );
