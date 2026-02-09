@@ -2,25 +2,28 @@ import { Link } from "react-router-dom";
 import { Home, Building, Palette, ChevronRight } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import serviceInterior from "@/assets/images/service-interior.jpg";
+import serviceExterior from "@/assets/images/service-exterior.jpg";
+import serviceStaining from "@/assets/images/service-staining.jpg";
 
 const featured = [
   {
     icon: Home,
     title: "Interior Painting",
     desc: "Transform any room with smooth, flawless finishes and expert color matching.",
-    gradient: "from-emerald-600 to-emerald-800",
+    image: serviceInterior,
   },
   {
     icon: Building,
     title: "Exterior Painting",
     desc: "Boost curb appeal and protect your home with weather-resistant coatings.",
-    gradient: "from-blue-600 to-blue-800",
+    image: serviceExterior,
   },
   {
     icon: Palette,
     title: "Staining & Specialty",
     desc: "Decks, fences, cabinets, and custom finishes tailored to your vision.",
-    gradient: "from-amber-600 to-amber-800",
+    image: serviceStaining,
   },
 ];
 
@@ -34,12 +37,11 @@ export function ServicesPreview() {
           subtitle="From interior refreshes to complete exterior transformations, we deliver premium results on every project."
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {featured.map(({ icon: Icon, title, desc, gradient }, i) => (
+          {featured.map(({ icon: Icon, title, desc, image }, i) => (
             <AnimatedSection key={title} delay={i * 0.1}>
               <div className="group bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-300 hover:-translate-y-2">
-                {/* Image placeholder */}
-                <div className={`aspect-[16/10] bg-gradient-to-br ${gradient} flex items-center justify-center`}>
-                  <span className="text-white/30 font-heading text-sm">Project Photo</span>
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img src={image} alt={title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">

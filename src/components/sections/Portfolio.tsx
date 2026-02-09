@@ -5,16 +5,24 @@ import { Link } from "react-router-dom";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useDragRotation } from "@/hooks/useDragRotation";
+import portfolioKitchen from "@/assets/images/portfolio-kitchen.jpg";
+import portfolioExterior from "@/assets/images/service-exterior.jpg";
+import portfolioLivingroom from "@/assets/images/portfolio-livingroom.jpg";
+import portfolioStaining from "@/assets/images/service-staining.jpg";
+import portfolioCommercial from "@/assets/images/service-commercial.jpg";
+import portfolioBathroom from "@/assets/images/portfolio-bathroom.jpg";
+import portfolioFence from "@/assets/images/portfolio-fence.jpg";
+import portfolioAccent from "@/assets/images/portfolio-accent.jpg";
 
 const portfolioItems = [
-  { id: 1, title: "Kitchen Cabinet Refinishing", location: "Denver, CO", category: "Interior", color: "from-emerald-600 to-emerald-800" },
-  { id: 2, title: "Full Exterior Repaint", location: "Lakewood, CO", category: "Exterior", color: "from-blue-600 to-blue-800" },
-  { id: 3, title: "Living Room Transformation", location: "Aurora, CO", category: "Interior", color: "from-amber-600 to-amber-800" },
-  { id: 4, title: "Deck Staining", location: "Arvada, CO", category: "Staining", color: "from-orange-600 to-orange-800" },
-  { id: 5, title: "Commercial Office", location: "Westminster, CO", category: "Commercial", color: "from-purple-600 to-purple-800" },
-  { id: 6, title: "Bathroom Refresh", location: "Thornton, CO", category: "Interior", color: "from-teal-600 to-teal-800" },
-  { id: 7, title: "Fence Staining", location: "Centennial, CO", category: "Staining", color: "from-red-600 to-red-800" },
-  { id: 8, title: "Accent Wall Feature", location: "Boulder, CO", category: "Custom", color: "from-pink-600 to-pink-800" },
+  { id: 1, title: "Kitchen Cabinet Refinishing", location: "Denver, CO", category: "Interior", image: portfolioKitchen },
+  { id: 2, title: "Full Exterior Repaint", location: "Lakewood, CO", category: "Exterior", image: portfolioExterior },
+  { id: 3, title: "Living Room Transformation", location: "Aurora, CO", category: "Interior", image: portfolioLivingroom },
+  { id: 4, title: "Deck Staining", location: "Arvada, CO", category: "Staining", image: portfolioStaining },
+  { id: 5, title: "Commercial Office", location: "Westminster, CO", category: "Commercial", image: portfolioCommercial },
+  { id: 6, title: "Bathroom Refresh", location: "Thornton, CO", category: "Interior", image: portfolioBathroom },
+  { id: 7, title: "Fence Staining", location: "Centennial, CO", category: "Staining", image: portfolioFence },
+  { id: 8, title: "Accent Wall Feature", location: "Boulder, CO", category: "Custom", image: portfolioAccent },
 ];
 
 export function Portfolio() {
@@ -88,8 +96,7 @@ export function Portfolio() {
                     onClick={() => !isDragging && setLightbox(item.id)}
                   >
                     <div className="h-full rounded-2xl bg-white shadow-elevated overflow-hidden relative">
-                      {/* Image placeholder with gradient */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${item.color}`} />
+                      <img src={item.image} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
                       {/* Gradient text overlay */}
                       <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
@@ -142,8 +149,8 @@ export function Portfolio() {
                   className="relative max-w-lg w-full"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className={`aspect-[4/3] rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center`}>
-                    <span className="text-white/40 text-lg font-heading">Project Photo</span>
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="mt-4 text-center">
                     <h3 className="text-white text-xl font-heading font-bold">{item.title}</h3>

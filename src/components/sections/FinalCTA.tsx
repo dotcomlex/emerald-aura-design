@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { MessageCircle, ChevronRight } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { COMPANY } from "@/lib/constants";
+import ctaSkyline from "@/assets/images/cta-denver-skyline.jpg";
 
 export function FinalCTA() {
   return (
     <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden">
-      {/* Background gradient placeholder */}
       <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-navy to-charcoal-900" />
+      <img src={ctaSkyline} alt="Denver skyline at golden hour" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0 bg-black/70" />
 
       <div className="relative z-10 container-max text-center px-6 py-12">

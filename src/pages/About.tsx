@@ -3,6 +3,8 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingCTA } from "@/components/layout/FloatingCTA";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Link } from "react-router-dom";
+import heroAbout from "@/assets/images/hero-about.jpg";
+import ownerPortrait from "@/assets/images/owner-portrait.jpg";
 import {
   Users, Gem, MessageCircle, Heart, ThumbsUp, Star,
   BadgeCheck, Shield, Lock, MapPin, Phone,
@@ -45,6 +47,7 @@ const About = () => {
             background: "linear-gradient(135deg, #047857 0%, #0d1f3c 100%)",
           }}
         >
+          <img src={heroAbout} alt="Emerald Paints team working together" loading="eager" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/65" />
           <div className="relative z-10 px-6 pt-20 pb-10 flex flex-col items-center lg:pt-0" style={{ maxWidth: 600 }}>
             <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.2)]">
@@ -65,13 +68,8 @@ const About = () => {
             <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
               {/* Image */}
               <AnimatedSection className="lg:w-[40%] flex-shrink-0">
-                <div
-                  className="w-full rounded-[20px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.12)]"
-                  style={{ aspectRatio: "4/3", background: "linear-gradient(135deg, #047857 0%, #065f46 100%)" }}
-                >
-                  <div className="w-full h-full flex items-center justify-center text-white/60 text-lg font-medium">
-                    Owner Photo
-                  </div>
+                <div className="w-full rounded-[20px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.12)]" style={{ aspectRatio: "4/3" }}>
+                  <img src={ownerPortrait} alt="Miguel, Founder & Lead Painter" loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <p className="text-center text-charcoal-500 text-sm italic mt-3">
                   Miguel, Founder &amp; Lead Painter

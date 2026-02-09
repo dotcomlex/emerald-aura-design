@@ -2,12 +2,14 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Star, Shield, MapPin, ChevronDown } from "lucide-react";
 import { heroSequence } from "@/lib/animations";
+import heroHomepage from "@/assets/images/hero-homepage.jpg";
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center bg-charcoal overflow-hidden" style={{ minHeight: "700px" }}>
-      {/* Background gradient placeholder */}
+      {/* Background image with gradient fallback */}
       <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-navy-light to-emerald-900/30" />
+      <img src={heroHomepage} alt="Professional exterior house painting in Denver, Colorado" loading="eager" className="absolute inset-0 w-full h-full object-cover" />
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70 lg:bg-gradient-to-r lg:from-black/75 lg:via-black/40 lg:to-black/20" />
 
