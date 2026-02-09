@@ -1,48 +1,74 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useDragRotation } from "@/hooks/useDragRotation";
 
 const portfolioItems = [
-  { id: 1, title: "Modern Kitchen Refresh", location: "Denver, CO", category: "Interior", color: "from-emerald-600 to-emerald-800" },
-  { id: 2, title: "Victorian Exterior", location: "Lakewood, CO", category: "Exterior", color: "from-blue-600 to-blue-800" },
-  { id: 3, title: "Living Room Accent Wall", location: "Aurora, CO", category: "Interior", color: "from-amber-600 to-amber-800" },
-  { id: 4, title: "Cedar Deck Staining", location: "Arvada, CO", category: "Staining", color: "from-orange-600 to-orange-800" },
-  { id: 5, title: "Office Suite Repaint", location: "Westminster, CO", category: "Commercial", color: "from-purple-600 to-purple-800" },
-  { id: 6, title: "Bathroom Transformation", location: "Thornton, CO", category: "Interior", color: "from-teal-600 to-teal-800" },
-  { id: 7, title: "Fence & Gate Staining", location: "Centennial, CO", category: "Staining", color: "from-red-600 to-red-800" },
+  { id: 1, title: "Kitchen Cabinet Refinishing", location: "Denver, CO", category: "Interior", color: "from-emerald-600 to-emerald-800" },
+  { id: 2, title: "Full Exterior Repaint", location: "Lakewood, CO", category: "Exterior", color: "from-blue-600 to-blue-800" },
+  { id: 3, title: "Living Room Transformation", location: "Aurora, CO", category: "Interior", color: "from-amber-600 to-amber-800" },
+  { id: 4, title: "Deck Staining", location: "Arvada, CO", category: "Staining", color: "from-orange-600 to-orange-800" },
+  { id: 5, title: "Commercial Office", location: "Westminster, CO", category: "Commercial", color: "from-purple-600 to-purple-800" },
+  { id: 6, title: "Bathroom Refresh", location: "Thornton, CO", category: "Interior", color: "from-teal-600 to-teal-800" },
+  { id: 7, title: "Fence Staining", location: "Centennial, CO", category: "Staining", color: "from-red-600 to-red-800" },
   { id: 8, title: "Accent Wall Feature", location: "Boulder, CO", category: "Custom", color: "from-pink-600 to-pink-800" },
 ];
 
 export function Portfolio() {
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const { rotation, isDragging, handlers } = useDragRotation(0.5);
+  const [isHovering, setIsHovering] = useState(false);
+  const { rotation, isDragging, setRotation, handlers } = useDragRotation(0.5);
   const total = portfolioItems.length;
   const angleStep = 360 / total;
-  const radius = 300;
+  const radius = typeof window !== "undefined" && window.innerWidth < 768 ? 250 : 400;
+  const cardW = typeof window !== "undefined" && window.innerWidth < 768 ? 280 : 400;
+  const cardH = typeof window !== "undefined" && window.innerWidth < 768 ? 350 : 450;
+
+  // Auto-rotation
+  useEffect(() => {
+    if (isDragging || isHovering || lightbox !== null) return;
+    const interval = setInterval(() => {
+      setRotation((r) => r + 0.1);
+    }, 16); // ~60fps, full rotation in ~60s
+    return () => clearInterval(interval);
+  }, [isDragging, isHovering, lightbox, setRotation]);
 
   return (
-    <section className="section-padding bg-navy overflow-hidden">
-      <div className="container-max">
+    <section
+      className="overflow-hidden"
+      style={{
+        background: "linear-gradient(180deg, #0a1628 0%, #0d1f3c 50%, #0a0f1a 100%)",
+        padding: "80px 0",
+      }}
+    >
+      <div className="container-max px-6">
         <SectionHeader
           eyebrow="Our Work"
-          title="Project Gallery"
-          subtitle="Drag to explore our recent transformations."
+          title="Work That Speaks For Itself"
+          subtitle="A quick look at recent projects across Colorado."
           light
         />
         <AnimatedSection>
           <div
-            className="relative mx-auto h-[420px] w-full max-w-[700px]"
-            style={{ perspective: "1000px" }}
+            className="relative mx-auto"
+            style={{
+              height: `${cardH + 100}px`,
+              perspective: "1200px",
+              marginTop: "48px",
+            }}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
             {...handlers}
           >
             <div
-              className={`relative w-full h-full transition-transform ${isDragging ? "" : "duration-300"}`}
+              className="relative w-full h-full"
               style={{
                 transformStyle: "preserve-3d",
                 transform: `rotateY(${rotation}deg)`,
+                transition: isDragging ? "none" : "transform 0.1s linear",
               }}
             >
               {portfolioItems.map((item, i) => {
@@ -50,26 +76,44 @@ export function Portfolio() {
                 return (
                   <div
                     key={item.id}
-                    className="absolute top-1/2 left-1/2 w-[200px] h-[280px] -mt-[140px] -ml-[100px] cursor-pointer"
+                    className="absolute top-1/2 left-1/2 cursor-pointer"
                     style={{
+                      width: `${cardW}px`,
+                      height: `${cardH}px`,
+                      marginTop: `${-cardH / 2}px`,
+                      marginLeft: `${-cardW / 2}px`,
                       transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
                       backfaceVisibility: "hidden",
                     }}
                     onClick={() => !isDragging && setLightbox(item.id)}
                   >
-                    <div className={`h-full rounded-2xl bg-gradient-to-br ${item.color} shadow-elevated flex flex-col justify-end p-4`}>
-                      <span className="text-white/60 text-xs font-medium">{item.category}</span>
-                      <h3 className="text-white font-heading font-semibold text-sm mt-1">{item.title}</h3>
-                      <p className="text-white/70 text-xs">{item.location}</p>
+                    <div className="h-full rounded-2xl bg-white shadow-elevated overflow-hidden relative">
+                      {/* Image placeholder with gradient */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${item.color}`} />
+                      {/* Gradient text overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                        <h3 className="text-white font-heading font-semibold text-lg">{item.title}</h3>
+                        <p className="text-white/80 text-sm mt-1">{item.location}</p>
+                        <p className="text-white/50 text-xs mt-2">Emerald Paints</p>
+                      </div>
                     </div>
                   </div>
                 );
               })}
             </div>
           </div>
-          <p className="text-center text-charcoal-400 text-sm mt-6">
-            {isDragging ? "Release to stop" : "Click & drag to rotate • Tap a card to view"}
+          <p className="text-center text-white/40 text-sm mt-8">
+            Auto-rotates • Swipe left or right to explore • Tap any photo to view
           </p>
+          <div className="text-center mt-10">
+            <Link
+              to="/contact"
+              className="inline-block bg-emerald-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-emerald-600 transition-colors shadow-glow-emerald"
+            >
+              Get a Free Estimate
+            </Link>
+          </div>
         </AnimatedSection>
       </div>
 

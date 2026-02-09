@@ -1,36 +1,67 @@
-import { Shield, Sparkles, Leaf, Clock, ThumbsUp, Award } from "lucide-react";
+import { Shield, Paintbrush, Sparkles } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import { COMPANY } from "@/lib/constants";
 
-const differentiators = [
-  { icon: Shield, title: "Licensed & Insured", desc: "Full coverage for your peace of mind on every project." },
-  { icon: Sparkles, title: "Premium Materials", desc: "We use top-tier paints and finishes from trusted brands." },
-  { icon: Leaf, title: "Clean Job Sites", desc: "We leave your home spotless — every single time." },
-  { icon: Clock, title: "On-Time Completion", desc: "We respect your schedule and deliver on our promises." },
-  { icon: ThumbsUp, title: "Satisfaction Guaranteed", desc: "We're not done until you're absolutely thrilled." },
-  { icon: Award, title: "15+ Years Experience", desc: "Decades of craftsmanship you can trust." },
+const proofPoints = [
+  {
+    icon: Shield,
+    title: "Licensed & Insured",
+    desc: "Fully licensed, bonded, and insured for your complete peace of mind.",
+  },
+  {
+    icon: Paintbrush,
+    title: "Premium Materials",
+    desc: "We use only top-tier paints and coatings for lasting, beautiful results.",
+  },
+  {
+    icon: Sparkles,
+    title: "Clean, Professional Work",
+    desc: "Meticulous prep, protection, and cleanup on every project.",
+  },
 ];
 
 export function WhyChooseUs() {
   return (
-    <section className="section-padding bg-charcoal">
+    <section className="section-padding bg-white">
       <div className="container-max">
-        <SectionHeader
-          eyebrow="Why Emerald Paints"
-          title="The Difference Is in the Details"
-          subtitle="We hold ourselves to a higher standard because your home deserves nothing less."
-          light
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {differentiators.map(({ icon: Icon, title, desc }, i) => (
-            <AnimatedSection key={title} delay={i * 0.06}>
-              <div className="p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-colors">
-                <Icon className="h-8 w-8 text-emerald-400 mb-4" />
-                <h3 className="font-heading font-semibold text-white mb-2">{title}</h3>
-                <p className="text-charcoal-400 text-sm leading-relaxed">{desc}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Image */}
+          <AnimatedSection>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-elevated bg-gradient-to-br from-emerald-600 to-charcoal flex items-center justify-center">
+              <span className="text-white/30 font-heading">Project Photo</span>
+              {/* Floating badge */}
+              <div className="absolute top-4 right-4 bg-emerald-500 text-white px-4 py-3 rounded-xl font-bold text-sm shadow-glow-emerald">
+                {COMPANY.yearsExperience}+ Years Experience
               </div>
-            </AnimatedSection>
-          ))}
+            </div>
+          </AnimatedSection>
+
+          {/* Content */}
+          <AnimatedSection delay={0.15}>
+            <span className="inline-block bg-emerald-50 text-emerald-600 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide">
+              Why Homeowners Trust Us
+            </span>
+            <h2 className="text-section-mobile lg:text-section-desktop text-charcoal font-heading mt-4">
+              Quality Craftsmanship, Every Time
+            </h2>
+            <p className="text-charcoal-500 text-base leading-relaxed mt-4">
+              We&apos;re not just painters — we&apos;re craftsmen committed to transforming your home with precision, professionalism, and pride in every brushstroke.
+            </p>
+
+            <div className="flex flex-col gap-4 mt-8">
+              {proofPoints.map(({ icon: Icon, title, desc }, i) => (
+                <div key={title} className="flex items-start gap-4 p-5 rounded-xl bg-charcoal-50 border border-charcoal-200">
+                  <div className="h-12 w-12 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                    <Icon className="h-6 w-6 text-emerald-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-charcoal">{title}</h3>
+                    <p className="text-charcoal-500 text-sm mt-1">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
