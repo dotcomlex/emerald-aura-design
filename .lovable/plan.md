@@ -1,87 +1,51 @@
 
 
-# Homepage Refinements to Match Premium Spec
+# Services Page - Complete Rebuild
 
 ## Overview
-The site is already built with all 12 sections. This plan focuses on the specific refinements needed to match the detailed spec pixel-perfectly and elevate the premium feel.
+The current Services page is minimal: a basic hero, simple card grid with only short descriptions, and a single CTA. The spec calls for a much richer, 7-section page with detailed service cards (features lists, image areas, overlapping icon badges), quality commitment section, materials/brands, process recap, FAQ accordion, and an emerald-branded CTA.
 
 ---
 
-## 1. Hero Section Overhaul
-**Current:** Left-aligned text, gradient background, trust badges as plain text rows.
-**Spec requires:**
-- Mobile: centered layout, full-viewport (min-height 700px), scroll indicator (bouncing chevron)
-- Desktop: left-aligned layout with right-biased gradient overlay
-- Trust badges styled as glass-morphism pills (semi-transparent background + backdrop-blur)
-- Updated copy: "Flawless Finishes. Lasting Impressions." headline, "DENVER'S TRUSTED PAINTING PROFESSIONALS" eyebrow
-- Buttons: full-width stacked on mobile, side-by-side on desktop, with emerald glow shadow
-- Animated scroll-down chevron at bottom
+## What Changes
 
-## 2. Navigation Updates
-**Current:** Uses logo image, nav scrolls to charcoal/95 background.
-**Spec requires:**
-- Scroll state should transition to **white** background (not dark), with charcoal text and shadow
-- Mobile: 3-column layout (hamburger | logo | phone icon)
-- Mobile menu: full-screen overlay with centered links, social icons, and contact info at bottom
-- Desktop: nav link hover underline animation (slides in from left)
+### 1. Update Constants (src/lib/constants.ts)
+Add detailed service data: full descriptions, feature lists, and gradient placeholders for each of the 8 services. Add FAQ data array (8 questions/answers). Add a brands array.
 
-## 3. Services Preview - Redesign to 3-Card Layout
-**Current:** 8 service cards in a 4-column grid.
-**Spec requires:** Only 3 featured cards (Interior, Exterior, Staining & Specialty) with image areas, "Learn More" links, and a bottom CTA row linking to the full Services page.
+### 2. Rebuild Services Page (src/pages/Services.tsx)
+Replace the entire page with 7 sections:
 
-## 4. Why Choose Us - Two-Column Image Layout
-**Current:** 6 cards in a grid on dark background.
-**Spec requires:** Light (white) background, two-column layout with an image on the left (with floating "15+ Years" badge) and content on the right with 3 proof-point cards (Licensed & Insured, Premium Materials, Clean Professional Work). Uses pill-style eyebrow badge.
+**Section 1 - Services Hero:** Half-viewport dark hero with a circular Paintbrush icon badge, "Our Services" headline, and subheadline. Gradient placeholder background with overlay.
 
-## 5. Process Steps - Timeline with Vertical Connector
-**Current:** 4 cards in a horizontal grid, emerald icon boxes.
-**Spec requires:** Light green (emerald-50) background, numbered circle badges (1-4) connected by a vertical line on mobile, horizontal connector on desktop, with specific icons (Calendar, ClipboardList, Paintbrush, CheckCircle).
+**Section 2 - Services Grid:** All 8 service cards in a responsive grid (1 col mobile, 2 col tablet, 3 col desktop). Each card has:
+- 16:10 gradient image placeholder area
+- Overlapping emerald icon badge (positioned between image and content)
+- Service title and full description
+- 4 feature bullet points with emerald checkmarks
+- "Get a Quote" link with arrow
 
-## 6. 3D Portfolio Gallery Enhancements
-**Current:** Working 3D carousel with gradient-colored placeholder cards.
-**Spec requires:**
-- Auto-rotation animation (60s cycle) that pauses on hover/drag
-- White card backgrounds with image placeholders + gradient text overlays
-- Larger cards: 280px wide mobile, 400px desktop
-- "Emerald Paints" branding on each card
-- Updated instruction text and CTA button below
+**Section 3 - Quality Commitment:** Two-column layout (image left, content right on desktop, stacked on mobile). 5 quality points in white cards with icons (Shield, Palette, Users, Home, Sparkles). Floating eyebrow pill badge.
 
-## 7. Testimonials - Dark Background with Card Carousel
-**Current:** Light cream background, centered quote carousel.
-**Spec requires:** Dark charcoal background, card-based layout with left emerald border, avatar initials circle, auto-advancing dots navigation (every 6 seconds), gold stars.
+**Section 4 - Materials & Brands:** Clean section showing 5 brand names (Sherwin-Williams, Benjamin Moore, Behr, PPG Paints, Cabot Stains) as styled text placeholders with grayscale-to-color hover effect.
 
-## 8. Service Areas - Grid with Check Icons
-**Current:** Pill-shaped tags with MapPin icons.
-**Spec requires:** 2-column grid on mobile with CheckCircle icons, card-style items with emerald-50 background.
+**Section 5 - Process Recap:** Dark charcoal section with 4 process step cards. Horizontally scrollable on mobile, 4-column grid on desktop. Each card shows numbered badge, icon, title, description.
 
-## 9. Final CTA - Image Background Section
-**Current:** Dark charcoal with radial gradient.
-**Spec requires:** Full-bleed background image (or gradient placeholder) with dark overlay, floating emerald badge with MessageCircle icon, trust line below CTA, arrow icon on the button.
+**Section 6 - FAQ Section:** Cream background with 8-item accordion. Uses Radix Accordion component (already installed). White card-style items with emerald plus/minus toggle icons. Smooth open/close animations.
 
-## 10. Floating Mobile CTA - Single Round Button
-**Current:** Full-width bar with two buttons (Call Now + Free Quote).
-**Spec requires:** Single 60px round floating button (bottom-right), emerald background with pulse glow animation, phone icon, appears after 600px scroll.
-
-## 11. Footer - Minor Refinements
-**Current:** Already well-structured 4-column layout. Mostly matches spec. Minor text refinements needed.
+**Section 7 - CTA Section:** Full emerald-500 background with white text. "Ready to Get Started?" headline, estimate button (white bg, emerald text), phone link, and trust line.
 
 ---
 
 ## Technical Details
 
-### Files to Modify
-1. `src/components/layout/Navigation.tsx` - White scroll state, mobile layout, hover underlines
-2. `src/components/sections/Hero.tsx` - New copy, centered mobile, glass badges, scroll indicator
-3. `src/components/sections/ServicesPreview.tsx` - 3-card featured layout with images
-4. `src/components/sections/WhyChooseUs.tsx` - Two-column image + proof points layout
-5. `src/components/sections/ProcessSteps.tsx` - Timeline with vertical connector and numbered badges
-6. `src/components/sections/Portfolio.tsx` - Auto-rotation, white cards, larger sizing
-7. `src/components/sections/Testimonials.tsx` - Dark background, card style, auto-advance dots
-8. `src/components/sections/ServiceAreas.tsx` - Grid layout with check icons
-9. `src/components/sections/FinalCTA.tsx` - Background overlay, badge, trust line
-10. `src/components/layout/FloatingCTA.tsx` - Single round button design
-11. `tailwind.config.ts` - Add any missing keyframes/animations if needed
+### Files Modified
+1. **src/lib/constants.ts** - Add `SERVICES_DETAILED`, `SERVICE_FAQS`, and `PAINT_BRANDS` arrays
+2. **src/pages/Services.tsx** - Complete rebuild with all 7 sections
+
+### Dependencies Used (already installed)
+- `@radix-ui/react-accordion` for FAQ section
+- `framer-motion` for animations
+- `lucide-react` for icons (Home, Building, Trees, Layers, Building2, Wrench, Palette, Paintbrush, Shield, Users, Sparkles, Calendar, ClipboardList, CheckCircle, ChevronRight, Plus, Phone)
 
 ### No New Dependencies Required
-All changes use existing packages (Framer Motion, Lucide, Tailwind).
 
