@@ -1,85 +1,64 @@
 
 
-# Portfolio 3D Carousel Rebuild
+# Fix Portfolio 3D Carousel - Match 14ER Exactly
 
-## Overview
-Rewrite the Portfolio section to match the 14ER Renovations 3D carousel exactly as shown in the reference screenshot. The current implementation uses continuous drag-based rotation; the new one uses discrete step-based auto-rotation with swipe/click controls, proper card centering, and the exact visual structure from the reference.
+## Problem
+The current carousel uses discrete step-based rotation (`setInterval` jumping 45 degrees every 4 seconds), causing jerky, broken behavior. The 14ER version uses continuous frame-based rotation via `requestAnimationFrame` for smooth, constant spinning.
 
-## What Changes
+## Solution
+Create a new `CircularGallery` component matching the 14ER architecture, then update `Portfolio.tsx` to use it.
 
-### File: `src/components/sections/Portfolio.tsx` (full rewrite)
+## Files to Create/Modify
 
-**Remove**: The `useDragRotation` hook dependency, `AnimatedSection` and `SectionHeader` component usage, and the lightbox modal.
+### 1. NEW: `src/components/ui/CircularGallery.tsx`
+A standalone 3D carousel engine with:
+- **Continuous rotation** using `requestAnimationFrame` (not setInterval)
+- `autoRotateSpeed` prop (default `-0.035` degrees/frame, matching 14ER)
+- **Drag/swipe support**: mouse drag and touch drag to rotate manually
+- **IntersectionObserver**: only animate when section is in viewport
+- **Responsive radius** via prop (passed from parent)
+- Cards positioned with `rotateY(angle + currentRotation)deg translateZ(radius)` around a circle
+- Each card: rounded-2xl, shadow-2xl, full-bleed image, gradient overlay, text at bottom
+- `backfaceVisibility: hidden` to hide rear-facing cards
+- Opacity fading for cards not facing front (angle > 90 degrees from front)
+- `onItemClick` callback for lightbox integration
 
-**New implementation**:
+### 2. MODIFY: `src/components/sections/Portfolio.tsx`
+- Remove all rotation/activeIndex state logic and setInterval auto-rotation
+- Add responsive radius with `useEffect` + resize listener (320px mobile, 520px desktop)
+- Add `IntersectionObserver` to detect when section is visible (`isActive` state)
+- Pass items, radius, `autoRotateSpeed={-0.035}`, `isActive`, and `onItemClick` to `CircularGallery`
+- Keep the existing lightbox modal, header, instruction text, and CTA button
+- Match the 14ER background exactly: multi-layer with base gradient (`from-[#0a1628] via-[#0d1f3c] to-[#0a0f1a]`), radial blue glow, mesh gradient overlay (orange/blue/purple radials), and vignette
 
-- **State**: `activeIndex` (current card) and `rotation` (in degrees) instead of continuous pixel-based rotation.
-- **Auto-rotation**: Steps forward by one card (360/N degrees) every 4 seconds, pauses on hover.
-- **Touch/swipe**: Threshold-based (50px) swipe detection to go next/prev card.
-- **Mouse drag**: Same drag-to-rotate as before but snapping to discrete positions.
+### 3. No new dependencies needed
+The `react-use-measure` package used in 14ER is not required -- we can use `useRef` + `getBoundingClientRect` or just CSS for the container sizing.
 
-**3D Carousel mechanics**:
-- Each card positioned with `rotateY(angle - rotation)deg translateZ(280px)` from center.
-- Cards centered in container using `left: 50%; top: 50%; transform: translate(-50%, -50%)` plus the 3D transform.
-- Card dimensions: `w-64 h-80` (mobile) / `w-80 h-96` (desktop).
-- `perspective: 1000px` on container, `transform-style: preserve-3d` on track.
-- `backfaceVisibility: hidden` on each card.
+## Technical: CircularGallery Rotation Engine
 
-**Section styling**:
-- Background: `bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900`
-- Subtle decorative blurred circles (orange and blue) in corners
-- Header with orange "OUR WORK" eyebrow, white title, white/70 subtitle
-- Instruction text: "Auto-rotates . Swipe left or right to explore . Tap any photo to view"
-- Orange CTA button with ArrowRight icon from lucide-react
-
-**Card styling** (matching reference screenshot exactly):
-- White rounded-2xl cards with shadow-2xl
-- Full-bleed image with gradient overlay from-black/80 via-black/20 to-transparent
-- Text overlay at bottom: title (white bold), location (white/80), "Emerald Paints" (white/60)
-
-**Portfolio items**: Keep the existing 8 items with their real image imports (portfolioKitchen, portfolioExterior, etc.).
-
-**Lightbox**: Keep the existing lightbox modal for tapping a card to view full-size.
-
-### File: `src/index.css` (add 3 utility classes)
-
-Add to `@layer utilities`:
-```css
-.perspective-1000 { perspective: 1000px; }
-.preserve-3d { transform-style: preserve-3d; }
-.transform-gpu { transform: translateZ(0); will-change: transform; }
+```text
+On each animation frame:
+  if (not dragging && isActive):
+    currentAngle += autoRotateSpeed
+  
+  For each card at index i:
+    cardAngle = (360 / totalCards) * i + currentAngle
+    normalizedAngle = normalize to [-180, 180]
+    
+    transform: rotateY(cardAngle)deg translateZ(radius)px
+    opacity: |normalizedAngle| < 90 ? lerp(1, 0.3) : 0
+    zIndex: based on how close to front (cos of angle)
+    scale: front card ~1.0, sides ~0.85
 ```
 
-### No other files change
-- `useDragRotation.ts` can remain (unused, or we can remove it -- it's only used by Portfolio).
-- All image imports stay the same.
+Drag handling:
+- On mousedown/touchstart: record startX and startAngle
+- On mousemove/touchmove: currentAngle = startAngle + (deltaX * sensitivity)
+- On mouseup/touchend: resume auto-rotation
 
----
-
-## Technical Details
-
-### Rotation Math
-- 8 cards at 45 degrees apart (360/8)
-- `rotation` state tracks cumulative degrees rotated
-- Each card: `transform: rotateY(cardAngle - rotation) translateZ(280px)`
-- Front-facing cards (angle difference < 90 degrees from 0) get full opacity; others fade to 0.3
-- Active card (front-center) scales to 1.05; others at 0.95
-
-### Auto-Rotation Logic
-```
-useEffect: every 4000ms, rotation += angleStep, activeIndex = (activeIndex + 1) % total
-Pauses when: isHovering or lightbox is open
-```
-
-### Swipe Logic
-```
-onTouchStart: record start X
-onTouchMove: if delta > 50px, advance; if delta < -50px, go back; reset touchStart
-```
-
-### Container Sizing
-- Mobile: `h-[380px]`
-- Tablet: `h-[420px]`
-- Desktop: `h-[480px]`
-- `translateZ` radius: 280px (tighter than current 480px, matching 14ER proportions for better visual overlap of side cards)
+## Background Layers (matching 14ER exactly)
+1. Base gradient: `bg-gradient-to-b from-[#0a1628] via-[#0d1f3c] to-[#0a0f1a]`
+2. Radial glow: `bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08)_0%,transparent_70%)]`
+3. Mesh gradient: three radial gradients (orange at 20%/80%, blue at 80%/20%, purple at center) at 30% opacity
+4. Vignette: `bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]`
 
