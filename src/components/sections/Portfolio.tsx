@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CircularGallery } from "@/components/ui/CircularGallery";
 import portfolioKitchen from "@/assets/images/portfolio-kitchen.jpg";
 import portfolioExterior from "@/assets/images/service-exterior.jpg";
 import portfolioLivingroom from "@/assets/images/portfolio-livingroom.jpg";
@@ -23,57 +24,53 @@ const portfolioItems = [
 ];
 
 export function Portfolio() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [rotation, setRotation] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const touchStartX = useRef<number | null>(null);
-
+  const [radius, setRadius] = useState(520);
+  const [isActive, setIsActive] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const total = portfolioItems.length;
-  const angleStep = 360 / total;
 
-  // Auto-rotation
+  // Responsive radius
   useEffect(() => {
-    if (isHovering || lightbox !== null) return;
-    const interval = setInterval(() => {
-      setRotation(prev => prev + angleStep);
-      setActiveIndex(prev => (prev + 1) % total);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [isHovering, lightbox, angleStep, total]);
-
-  const goNext = useCallback(() => {
-    setRotation(prev => prev + angleStep);
-    setActiveIndex(prev => (prev + 1) % total);
-  }, [angleStep, total]);
-
-  const goPrev = useCallback(() => {
-    setRotation(prev => prev - angleStep);
-    setActiveIndex(prev => (prev - 1 + total) % total);
-  }, [angleStep, total]);
-
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
+    const updateRadius = () => {
+      setRadius(window.innerWidth < 640 ? 320 : 520);
+    };
+    updateRadius();
+    window.addEventListener("resize", updateRadius);
+    return () => window.removeEventListener("resize", updateRadius);
   }, []);
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.touches[0].clientX;
-    if (diff > 50) { goNext(); touchStartX.current = null; }
-    if (diff < -50) { goPrev(); touchStartX.current = null; }
-  }, [goNext, goPrev]);
-
-  const handleTouchEnd = useCallback(() => { touchStartX.current = null; }, []);
-
-  // Normalize angle difference to [-180, 180]
-  const normalizeAngle = (a: number) => ((a % 360) + 540) % 360 - 180;
+  // IntersectionObserver for viewport activation
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsActive(entry.isIntersecting),
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-800/30 to-slate-900/50" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+    <section
+      ref={sectionRef}
+      className="relative w-full overflow-hidden"
+    >
+      {/* Background layers matching 14ER */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a1628] via-[#0d1f3c] to-[#0a0f1a]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08)_0%,transparent_70%)]" />
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          background: [
+            "radial-gradient(circle at 20% 80%, rgba(249,115,22,0.15) 0%, transparent 50%)",
+            "radial-gradient(circle at 80% 20%, rgba(59,130,246,0.15) 0%, transparent 50%)",
+            "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.1) 0%, transparent 50%)",
+          ].join(", "),
+        }}
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]" />
 
       <div className="relative flex flex-col items-center pt-16 pb-12 px-4 md:py-16">
         {/* Header */}
@@ -90,55 +87,20 @@ export function Portfolio() {
         </div>
 
         {/* 3D Carousel */}
-        <div
-          className="relative w-full max-w-5xl mx-auto h-[340px] sm:h-[420px] md:h-[480px] perspective-1000"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="relative w-full h-full preserve-3d" style={{ transformStyle: "preserve-3d" }}>
-            {portfolioItems.map((item, index) => {
-              const angle = index * angleStep;
-              const diff = normalizeAngle(angle - rotation);
-              const isFront = Math.abs(diff) < 90;
-              const isActive = index === activeIndex;
-
-              return (
-                <div
-                  key={item.id}
-                  className="absolute left-1/2 top-1/2 w-64 h-80 md:w-80 md:h-96 cursor-pointer"
-                  style={{
-                    transform: `translate(-50%, -50%) rotateY(${diff}deg) translateZ(280px) scale(${isActive ? 1.05 : 0.9})`,
-                    opacity: isFront ? 1 : 0.3,
-                    transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s ease",
-                    backfaceVisibility: "hidden",
-                    zIndex: isActive ? 20 : 10,
-                  }}
-                  onClick={() => setLightbox(item.id)}
-                >
-                  <div className="w-full h-full bg-white rounded-2xl overflow-hidden shadow-2xl transform-gpu">
-                    <div className="relative h-full">
-                      <img src={item.image} alt={item.title} loading="lazy" className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <h3 className="text-white font-bold text-lg md:text-xl mb-1">{item.title}</h3>
-                        <p className="text-white/80 text-sm mb-2">{item.location}</p>
-                        <p className="text-white/60 text-xs">Emerald Paints</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        <div className="relative w-full max-w-5xl mx-auto h-[340px] sm:h-[420px] md:h-[480px]">
+          <CircularGallery
+            items={portfolioItems}
+            radius={radius}
+            autoRotateSpeed={-0.035}
+            isActive={isActive}
+            onItemClick={(id) => setLightbox(id)}
+          />
         </div>
 
         {/* Instruction text */}
         <div className="text-center mt-2 md:mt-16 relative z-40">
           <p className="text-white/40 text-xs md:text-sm tracking-wide">
-            Auto-rotates • Swipe left or right to explore • Tap any photo to view
+            Auto-rotates • Drag or swipe to explore • Tap any photo to view
           </p>
         </div>
 
