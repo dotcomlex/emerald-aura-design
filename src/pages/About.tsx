@@ -51,7 +51,7 @@ const About = () => {
           <div className="absolute inset-0 bg-black/65" />
           <div className="relative z-10 px-6 pt-20 pb-10 flex flex-col items-center lg:pt-0" style={{ maxWidth: 600 }}>
             <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.2)]">
-              <Users className="h-7 w-7 text-emerald-500" />
+              <Users className="h-7 w-7 text-blue-500" />
             </div>
             <h1 className="mt-5 text-4xl lg:text-[56px] font-bold font-heading text-white leading-tight">
               About Emerald Paints
@@ -66,7 +66,6 @@ const About = () => {
         <section className="py-16 lg:py-24 bg-white">
           <div className="container-max px-6">
             <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
-              {/* Image */}
               <AnimatedSection className="lg:w-[40%] flex-shrink-0">
                 <div className="w-full rounded-[20px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.12)]" style={{ aspectRatio: "4/3" }}>
                   <img src={ownerPortrait} alt="Miguel, Founder & Lead Painter" loading="lazy" className="w-full h-full object-cover" />
@@ -76,9 +75,8 @@ const About = () => {
                 </p>
               </AnimatedSection>
 
-              {/* Content */}
               <AnimatedSection delay={0.15} className="mt-8 lg:mt-0 lg:w-[60%]">
-                <span className="text-emerald-500 text-xs font-semibold uppercase tracking-widest">OUR STORY</span>
+                <span className="text-orange-500 text-xs font-semibold uppercase tracking-widest">OUR STORY</span>
                 <h2 className="mt-3 text-[28px] lg:text-[40px] font-bold font-heading text-charcoal leading-tight">
                   Built on Craftsmanship, Driven by Pride
                 </h2>
@@ -97,7 +95,7 @@ const About = () => {
         <section className="py-16 lg:py-24 bg-[#fafafa]">
           <div className="container-max px-6">
             <AnimatedSection className="text-center mb-10 lg:mb-16">
-              <span className="text-emerald-600 text-xs font-semibold uppercase tracking-widest">WHAT WE STAND FOR</span>
+              <span className="text-orange-500 text-xs font-semibold uppercase tracking-widest">WHAT WE STAND FOR</span>
               <h2 className="mt-3 text-[28px] lg:text-section-desktop font-bold font-heading text-charcoal">Our Core Values</h2>
               <p className="mt-4 text-charcoal-500 text-base">The principles that guide everything we do.</p>
             </AnimatedSection>
@@ -105,8 +103,8 @@ const About = () => {
               {values.map(({ icon: Icon, title, desc }, i) => (
                 <AnimatedSection key={title} delay={i * 0.08}>
                   <div className="bg-white rounded-2xl p-7 text-center shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto">
-                      <Icon className="h-7 w-7 text-emerald-600" />
+                    <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto">
+                      <Icon className="h-7 w-7 text-blue-600" />
                     </div>
                     <h3 className="mt-4 font-heading font-semibold text-lg text-charcoal">{title}</h3>
                     <p className="mt-2 text-charcoal-500 text-[15px] leading-relaxed">{desc}</p>
@@ -125,8 +123,8 @@ const About = () => {
                 <AnimatedSection key={label} delay={i * 0.08}>
                   <div className="text-center">
                     <div className="flex items-center justify-center gap-1">
-                      <span className="text-emerald-400 font-heading font-bold text-5xl lg:text-[64px]">{value}</span>
-                      {hasStar && <Star className="h-6 w-6 lg:h-8 lg:w-8 text-emerald-400 fill-emerald-400" />}
+                      <span className="text-blue-400 font-heading font-bold text-5xl lg:text-[64px]">{value}</span>
+                      {hasStar && <Star className="h-6 w-6 lg:h-8 lg:w-8 text-gold fill-gold" />}
                     </div>
                     <p className="mt-1 text-white/70 text-sm">{label}</p>
                   </div>
@@ -147,7 +145,7 @@ const About = () => {
               {credentials.map(({ icon: Icon, label }, i) => (
                 <AnimatedSection key={label} delay={i * 0.06}>
                   <div className="bg-charcoal-50 border border-charcoal-200 rounded-xl py-6 px-4 text-center">
-                    <Icon className="h-8 w-8 text-emerald-500 mx-auto mb-3" />
+                    <Icon className="h-8 w-8 text-blue-500 mx-auto mb-3" />
                     <span className="text-charcoal-800 text-sm font-medium">{label}</span>
                   </div>
                 </AnimatedSection>
@@ -157,14 +155,14 @@ const About = () => {
         </section>
 
         {/* Section 6 - CTA */}
-        <section className="py-16 lg:py-24 bg-emerald-500 text-center">
+        <section className="py-16 lg:py-24 bg-slate-800 text-center">
           <div className="container-max px-6">
             <AnimatedSection>
               <h2 className="text-[28px] lg:text-section-desktop font-bold font-heading text-white">Ready to Work with Us?</h2>
               <p className="mt-4 text-white/90 text-base max-w-md mx-auto">Contact us today for your free, no-obligation estimate.</p>
               <Link
                 to="/contact"
-                className="mt-6 inline-block bg-white text-emerald-600 px-8 py-4 rounded-xl font-semibold text-base hover:bg-gray-50 transition-colors shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
+                className="mt-6 inline-block bg-orange-500 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-orange-600 transition-all shadow-glow-orange"
               >
                 Get Your Free Estimate
               </Link>

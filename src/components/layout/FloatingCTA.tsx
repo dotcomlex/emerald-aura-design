@@ -15,7 +15,7 @@ export function FloatingCTA() {
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0, opacity: 0 }}
-          className="fixed bottom-6 right-6 z-40 lg:hidden w-[60px] h-[60px] rounded-full bg-emerald-500 flex items-center justify-center shadow-glow-emerald-strong animate-pulse-glow"
+          className="fixed bottom-6 right-6 z-40 lg:hidden w-[60px] h-[60px] rounded-full bg-orange-500 flex items-center justify-center shadow-glow-orange-strong animate-pulse-glow"
           aria-label="Call us"
         >
           <Phone className="h-7 w-7 text-white" />

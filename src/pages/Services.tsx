@@ -64,7 +64,7 @@ const Services = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70" />
           <div className="relative z-10 text-center px-6 pt-20">
             <AnimatedSection>
-              <div className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center mx-auto shadow-[0_4px_20px_rgba(16,185,129,0.4)]">
+              <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center mx-auto shadow-[0_4px_20px_rgba(59,130,246,0.4)]">
                 <Paintbrush className="h-7 w-7 text-white" />
               </div>
               <h1 className="text-4xl lg:text-[56px] font-heading font-bold text-white mt-5 leading-tight">
@@ -82,7 +82,7 @@ const Services = () => {
           <div className="max-w-[1200px] mx-auto">
             <AnimatedSection>
               <div className="text-center">
-                <span className="text-xs font-semibold uppercase tracking-widest text-emerald-500">What We Offer</span>
+                <span className="text-xs font-semibold uppercase tracking-widest text-orange-500">What We Offer</span>
                 <h2 className="text-3xl lg:text-5xl font-heading font-bold text-charcoal mt-3">Complete Painting Solutions</h2>
                 <p className="text-charcoal-500 text-base mt-4 max-w-xs lg:max-w-lg mx-auto">
                   From single rooms to complete home transformations, we have you covered.
@@ -95,12 +95,12 @@ const Services = () => {
                 const Icon = iconMap[service.icon] || Home;
                 return (
                   <AnimatedSection key={service.id} delay={i * 0.05}>
-                    <div className="group rounded-[20px] border border-charcoal-200 overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] hover:border-emerald-200 transition-all duration-300">
+                    <div className="group rounded-[20px] border border-charcoal-200 overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] hover:border-blue-200 transition-all duration-300">
                       {/* Image placeholder */}
                       <div className="relative aspect-[16/10] overflow-hidden">
                         <img src={serviceImageMap[service.id] || ""} alt={service.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                         {/* Overlapping icon badge */}
-                        <div className="absolute -bottom-6 left-6 w-14 h-14 rounded-2xl bg-emerald-500 border-4 border-white shadow-[0_4px_12px_rgba(16,185,129,0.3)] flex items-center justify-center z-10">
+                        <div className="absolute -bottom-6 left-6 w-14 h-14 rounded-2xl bg-blue-500 border-4 border-white shadow-[0_4px_12px_rgba(59,130,246,0.3)] flex items-center justify-center z-10">
                           <Icon className="h-7 w-7 text-white" />
                         </div>
                       </div>
@@ -118,7 +118,7 @@ const Services = () => {
                         </ul>
                         <Link
                           to="/contact"
-                          className="inline-flex items-center gap-1 text-emerald-500 font-semibold text-[15px] mt-5 hover:gap-2 hover:text-emerald-600 transition-all"
+                          className="inline-flex items-center gap-1 text-blue-500 font-semibold text-[15px] mt-5 hover:gap-2 hover:text-blue-600 transition-all"
                         >
                           Get a Quote <ChevronRight className="h-[18px] w-[18px]" />
                         </Link>
@@ -142,7 +142,7 @@ const Services = () => {
 
             <div className="mt-8 lg:mt-0">
               <AnimatedSection delay={0.1}>
-                <span className="inline-block bg-white text-emerald-600 text-xs font-semibold uppercase tracking-wide px-4 py-2 rounded-full">
+                <span className="inline-block bg-white text-orange-500 text-xs font-semibold uppercase tracking-wide px-4 py-2 rounded-full">
                   Our Commitment
                 </span>
                 <h2 className="text-3xl lg:text-[40px] font-heading font-bold text-charcoal mt-4 leading-tight">
@@ -157,8 +157,8 @@ const Services = () => {
                 {qualityPoints.map((pt, i) => (
                   <AnimatedSection key={pt.title} delay={0.15 + i * 0.05}>
                     <div className="flex gap-4 bg-white p-5 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-                      <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
-                        <pt.icon className="h-6 w-6 text-emerald-600" />
+                      <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+                        <pt.icon className="h-6 w-6 text-blue-600" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-charcoal">{pt.title}</h4>
@@ -182,7 +182,7 @@ const Services = () => {
             <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12 mt-8">
               {PAINT_BRANDS.map((brand) => (
                 <AnimatedSection key={brand}>
-                  <span className="text-lg lg:text-xl font-bold text-charcoal-400 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 hover:text-emerald-600 transition-all duration-300 cursor-default select-none">
+                  <span className="text-lg lg:text-xl font-bold text-charcoal-400 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 hover:text-blue-600 transition-all duration-300 cursor-default select-none">
                     {brand}
                   </span>
                 </AnimatedSection>
@@ -196,7 +196,7 @@ const Services = () => {
           <div className="max-w-[1200px] mx-auto">
             <AnimatedSection>
               <div className="text-center">
-                <span className="text-xs font-semibold uppercase tracking-widest text-emerald-400">Our Process</span>
+                <span className="text-xs font-semibold uppercase tracking-widest text-blue-400">Our Process</span>
                 <h2 className="text-3xl lg:text-5xl font-heading font-bold text-white mt-3">How We Work</h2>
                 <p className="text-white/60 text-base mt-4">A simple, stress-free process from estimate to completion.</p>
               </div>
@@ -206,10 +206,10 @@ const Services = () => {
             <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 mt-10 lg:hidden scrollbar-hide">
               {processSteps.map((s) => (
                 <div key={s.num} className="min-w-[280px] flex-shrink-0 snap-start bg-charcoal-700 rounded-2xl p-6 text-center">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-lg mx-auto">
+                  <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg mx-auto">
                     {s.num}
                   </div>
-                  <s.icon className="h-6 w-6 text-emerald-400 mx-auto mt-4" />
+                  <s.icon className="h-6 w-6 text-blue-400 mx-auto mt-4" />
                   <h3 className="font-heading font-semibold text-white text-lg mt-3">{s.title}</h3>
                   <p className="text-white/60 text-sm mt-2">{s.desc}</p>
                 </div>
@@ -221,10 +221,10 @@ const Services = () => {
               {processSteps.map((s, i) => (
                 <AnimatedSection key={s.num} delay={i * 0.1}>
                   <div className="bg-charcoal-700 rounded-2xl p-6 text-center min-h-[220px]">
-                    <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-lg mx-auto">
+                    <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg mx-auto">
                       {s.num}
                     </div>
-                    <s.icon className="h-6 w-6 text-emerald-400 mx-auto mt-4" />
+                    <s.icon className="h-6 w-6 text-blue-400 mx-auto mt-4" />
                     <h3 className="font-heading font-semibold text-white text-lg mt-3">{s.title}</h3>
                     <p className="text-white/60 text-sm mt-2">{s.desc}</p>
                   </div>
@@ -251,7 +251,7 @@ const Services = () => {
                     value={`faq-${i}`}
                     className="bg-white rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.04)] border-none overflow-hidden"
                   >
-                    <AccordionTrigger className="px-6 py-5 text-left font-medium text-charcoal hover:no-underline [&>svg]:text-emerald-500">
+                    <AccordionTrigger className="px-6 py-5 text-left font-medium text-charcoal hover:no-underline [&>svg]:text-blue-500">
                       {faq.question}
                     </AccordionTrigger>
                     <AccordionContent className="px-6 pb-5 text-charcoal-500 text-[15px] leading-relaxed">
@@ -265,7 +265,7 @@ const Services = () => {
         </section>
 
         {/* ── Section 7: CTA ── */}
-        <section className="bg-emerald-500 py-16 lg:py-24 px-6 text-center">
+        <section className="bg-slate-800 py-16 lg:py-24 px-6 text-center">
           <AnimatedSection>
             <h2 className="text-3xl lg:text-5xl font-heading font-bold text-white">Ready to Get Started?</h2>
             <p className="text-white/90 text-base max-w-[400px] mx-auto mt-4">
@@ -273,7 +273,7 @@ const Services = () => {
             </p>
             <Link
               to="/contact"
-              className="inline-block bg-white text-emerald-600 font-semibold text-base px-8 py-4 rounded-xl mt-6 shadow-[0_4px_12px_rgba(0,0,0,0.15)] hover:bg-gray-50 hover:shadow-lg transition-all"
+              className="inline-block bg-orange-500 text-white font-semibold text-base px-8 py-4 rounded-xl mt-6 shadow-glow-orange hover:bg-orange-600 hover:shadow-lg transition-all"
             >
               Get Your Free Estimate
             </Link>

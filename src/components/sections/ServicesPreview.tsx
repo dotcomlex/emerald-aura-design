@@ -45,15 +45,15 @@ export function ServicesPreview() {
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="h-10 w-10 rounded-full bg-emerald-50 flex items-center justify-center">
-                      <Icon className="h-5 w-5 text-emerald-600" />
+                    <div className="h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center">
+                      <Icon className="h-5 w-5 text-blue-600" />
                     </div>
                     <h3 className="font-heading font-semibold text-charcoal text-lg">{title}</h3>
                   </div>
                   <p className="text-charcoal-500 text-[15px] leading-relaxed">{desc}</p>
                   <Link
                     to="/services"
-                    className="mt-4 inline-flex items-center gap-1 text-emerald-500 font-medium text-[15px] group-hover:gap-2 transition-all"
+                    className="mt-4 inline-flex items-center gap-1 text-blue-500 font-medium text-[15px] group-hover:gap-2 transition-all"
                   >
                     Learn More <ChevronRight className="h-4 w-4" />
                   </Link>
@@ -67,7 +67,7 @@ export function ServicesPreview() {
             <p className="text-charcoal-500 mb-4">Need commercial painting or a custom project?</p>
             <Link
               to="/services"
-              className="inline-block bg-emerald-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors"
+              className="inline-block bg-orange-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-colors"
             >
               View All Services
             </Link>

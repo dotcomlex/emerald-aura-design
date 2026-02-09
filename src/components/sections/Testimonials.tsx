@@ -54,7 +54,7 @@ export function Testimonials() {
 
                 {/* Author */}
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xl">
                     {current.name.charAt(0)}
                   </div>
                   <div>
@@ -73,7 +73,7 @@ export function Testimonials() {
                   onClick={() => setActive(i)}
                   className={`px-4 py-3 rounded-xl text-left transition-all duration-300 ${
                     i === active
-                      ? "bg-emerald-600 text-white shadow-lg"
+                      ? "bg-blue-600 text-white shadow-lg"
                       : "bg-white/5 text-white/70 hover:bg-white/10"
                   }`}
                 >

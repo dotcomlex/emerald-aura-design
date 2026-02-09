@@ -28,10 +28,10 @@ export function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image */}
           <AnimatedSection>
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-elevated bg-gradient-to-br from-emerald-600 to-charcoal">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-elevated bg-gradient-to-br from-blue-600 to-charcoal">
               <img src={painterInterior} alt="Professional painter at work" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
               {/* Floating badge */}
-              <div className="absolute top-4 right-4 bg-emerald-500 text-white px-4 py-3 rounded-xl font-bold text-sm shadow-glow-emerald">
+              <div className="absolute top-4 right-4 bg-orange-500 text-white px-4 py-3 rounded-xl font-bold text-sm shadow-glow-orange">
                 {COMPANY.yearsExperience}+ Years Experience
               </div>
             </div>
@@ -39,7 +39,7 @@ export function WhyChooseUs() {
 
           {/* Content */}
           <AnimatedSection delay={0.15}>
-            <span className="inline-block bg-gray-100 text-emerald-700 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide">
+            <span className="inline-block bg-gray-100 text-blue-700 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide">
               Why Homeowners Trust Us
             </span>
             <h2 className="text-section-mobile lg:text-section-desktop text-charcoal font-heading mt-4">
@@ -52,8 +52,8 @@ export function WhyChooseUs() {
             <div className="flex flex-col gap-4 mt-8">
               {proofPoints.map(({ icon: Icon, title, desc }, i) => (
                 <div key={title} className="flex items-start gap-4 p-5 rounded-xl bg-charcoal-50 border border-charcoal-200">
-                  <div className="h-12 w-12 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                    <Icon className="h-6 w-6 text-emerald-600" />
+                  <div className="h-12 w-12 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
+                    <Icon className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
                     <h3 className="font-heading font-semibold text-charcoal">{title}</h3>
