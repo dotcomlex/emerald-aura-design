@@ -32,10 +32,9 @@ export function Navigation() {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Emerald Paints" className="h-10 w-auto" />
-            <span className={`font-heading font-bold text-lg hidden sm:block ${isScrolled ? "text-charcoal" : "text-white"}`}>
-              {COMPANY.shortName}
-            </span>
+            <div className={`rounded-lg transition-all ${isScrolled ? "" : "bg-white p-1.5"}`}>
+              <img src={logo} alt="Emerald Paints" className="h-10 w-auto" />
+            </div>
           </Link>
 
           {/* Desktop nav */}
@@ -109,9 +108,9 @@ export function Navigation() {
                 <X className="h-6 w-6" />
               </button>
 
-              <span className="font-heading font-bold text-2xl text-white mb-12">
-                <span className="text-emerald-400">Emerald</span> Paints
-              </span>
+              <div className="bg-white rounded-lg p-2 mb-12">
+                <img src={logo} alt="Emerald Paints" className="h-12 w-auto" />
+              </div>
 
               <div className="flex flex-col items-center gap-6">
                 {NAV_LINKS.map((link) => (

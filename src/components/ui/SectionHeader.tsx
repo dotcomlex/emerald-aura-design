@@ -11,7 +11,7 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ eyebrow, title, subtitle, centered = true, light = false, className }: SectionHeaderProps) {
   return (
-    <div className={cn("mb-12 lg:mb-16", centered && "text-center", className)}>
+    <div className={cn("mb-14 lg:mb-20", centered && "text-center", className)}>
       {eyebrow && (
         <span className={cn("text-eyebrow mb-3 block", light ? "text-emerald-400" : "text-emerald-600")}>
           {eyebrow}

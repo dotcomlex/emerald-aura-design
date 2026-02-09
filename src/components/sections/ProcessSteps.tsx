@@ -11,7 +11,7 @@ const steps = [
 
 export function ProcessSteps() {
   return (
-    <section className="section-padding bg-emerald-50">
+    <section className="section-padding bg-[#fafafa]">
       <div className="container-max">
         <SectionHeader
           eyebrow="Our Process"
@@ -22,7 +22,7 @@ export function ProcessSteps() {
         {/* Mobile: vertical timeline */}
         <div className="lg:hidden relative mt-12 pl-10">
           {/* Vertical line */}
-          <div className="absolute left-[23px] top-6 bottom-6 w-0.5 bg-emerald-200" />
+          <div className="absolute left-[23px] top-6 bottom-6 w-0.5 bg-gray-200" />
           <div className="flex flex-col gap-8">
             {steps.map(({ num, icon: Icon, title, desc }) => (
               <AnimatedSection key={num} delay={num * 0.1}>
@@ -45,7 +45,7 @@ export function ProcessSteps() {
         <div className="hidden lg:block mt-12">
           <div className="relative">
             {/* Horizontal line */}
-            <div className="absolute top-6 left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-0.5 bg-emerald-200" />
+            <div className="absolute top-6 left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] h-0.5 bg-gray-200" />
             <div className="grid grid-cols-4 gap-8">
               {steps.map(({ num, icon: Icon, title, desc }) => (
                 <AnimatedSection key={num} delay={num * 0.1}>

@@ -39,7 +39,7 @@ export function WhyChooseUs() {
 
           {/* Content */}
           <AnimatedSection delay={0.15}>
-            <span className="inline-block bg-emerald-50 text-emerald-600 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide">
+            <span className="inline-block bg-gray-100 text-emerald-700 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide">
               Why Homeowners Trust Us
             </span>
             <h2 className="text-section-mobile lg:text-section-desktop text-charcoal font-heading mt-4">

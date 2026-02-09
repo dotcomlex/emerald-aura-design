@@ -11,8 +11,9 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-3 mb-4">
-              <img src={logo} alt="Emerald Paints" className="h-10 w-auto" />
-              <span className="font-heading font-bold text-lg">{COMPANY.shortName}</span>
+              <div className="bg-white rounded-lg p-1.5">
+                <img src={logo} alt="Emerald Paints" className="h-10 w-auto" />
+              </div>
             </Link>
             <p className="text-charcoal-400 text-sm leading-relaxed">
               Denver&apos;s premier painting professionals. Delivering flawless finishes and exceptional service for over {COMPANY.yearsExperience} years.
