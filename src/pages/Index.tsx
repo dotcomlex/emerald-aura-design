@@ -1,13 +1,34 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Navigation } from "@/components/layout/Navigation";
+import { Footer } from "@/components/layout/Footer";
+import { FloatingCTA } from "@/components/layout/FloatingCTA";
+import { Hero } from "@/components/sections/Hero";
+import { SocialProofMarquee } from "@/components/sections/SocialProofMarquee";
+import { ServicesPreview } from "@/components/sections/ServicesPreview";
+import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
+import { ProcessSteps } from "@/components/sections/ProcessSteps";
+import { Portfolio } from "@/components/sections/Portfolio";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { ServiceAreas } from "@/components/sections/ServiceAreas";
+import { FinalCTA } from "@/components/sections/FinalCTA";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      <Navigation />
+      <main>
+        <Hero />
+        <SocialProofMarquee />
+        <ServicesPreview />
+        <WhyChooseUs />
+        <ProcessSteps />
+        <Portfolio />
+        <Testimonials />
+        <ServiceAreas />
+        <FinalCTA />
+      </main>
+      <Footer />
+      <FloatingCTA />
+    </>
   );
 };
 
