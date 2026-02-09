@@ -1,6 +1,7 @@
 import { Shield, Paintbrush, Sparkles } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { COMPANY } from "@/lib/constants";
+import painterInterior from "@/assets/images/painter-interior.jpg";
 
 const proofPoints = [
   {
@@ -27,8 +28,8 @@ export function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image */}
           <AnimatedSection>
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-elevated bg-gradient-to-br from-emerald-600 to-charcoal flex items-center justify-center">
-              <span className="text-white/30 font-heading">Project Photo</span>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-elevated bg-gradient-to-br from-emerald-600 to-charcoal">
+              <img src={painterInterior} alt="Professional painter at work" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
               {/* Floating badge */}
               <div className="absolute top-4 right-4 bg-emerald-500 text-white px-4 py-3 rounded-xl font-bold text-sm shadow-glow-emerald">
                 {COMPANY.yearsExperience}+ Years Experience

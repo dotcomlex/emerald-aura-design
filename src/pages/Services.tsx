@@ -3,6 +3,16 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingCTA } from "@/components/layout/FloatingCTA";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Link } from "react-router-dom";
+import heroServices from "@/assets/images/hero-services.jpg";
+import serviceInterior from "@/assets/images/service-interior.jpg";
+import serviceExterior from "@/assets/images/service-exterior.jpg";
+import serviceStaining from "@/assets/images/service-staining.jpg";
+import serviceVinyl from "@/assets/images/service-vinyl.jpg";
+import serviceCommercial from "@/assets/images/service-commercial.jpg";
+import serviceTouchups from "@/assets/images/service-touchups.jpg";
+import serviceCustom from "@/assets/images/service-custom.jpg";
+import serviceConsultation from "@/assets/images/service-consultation.jpg";
+import painterInterior from "@/assets/images/painter-interior.jpg";
 import {
   Home, Building, Trees, Layers, Building2, Wrench, Palette, Paintbrush,
   Shield, Users, Sparkles, Calendar, ClipboardList, CheckCircle, ChevronRight, Plus, Phone,
@@ -14,6 +24,17 @@ import {
 
 const iconMap: Record<string, React.ElementType> = {
   Home, Building, Trees, Layers, Building2, Wrench, Palette, Paintbrush,
+};
+
+const serviceImageMap: Record<string, string> = {
+  "interior": serviceInterior,
+  "exterior": serviceExterior,
+  "staining": serviceStaining,
+  "vinyl": serviceVinyl,
+  "commercial": serviceCommercial,
+  "repairs": serviceTouchups,
+  "custom": serviceCustom,
+  "color": serviceConsultation,
 };
 
 const qualityPoints = [
@@ -39,6 +60,7 @@ const Services = () => {
         {/* ── Section 1: Services Hero ── */}
         <section className="relative h-[50vh] min-h-[400px] max-h-[500px] lg:h-[60vh] lg:max-h-[600px] overflow-hidden flex items-center justify-center">
           <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #0d1f3c 50%, #047857 100%)" }} />
+          <img src={heroServices} alt="Professional painter working on interior wall" loading="eager" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70" />
           <div className="relative z-10 text-center px-6 pt-20">
             <AnimatedSection>
@@ -76,7 +98,7 @@ const Services = () => {
                     <div className="group rounded-[20px] border border-charcoal-200 overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] hover:border-emerald-200 transition-all duration-300">
                       {/* Image placeholder */}
                       <div className="relative aspect-[16/10] overflow-hidden">
-                        <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" style={{ background: service.gradient }} />
+                        <img src={serviceImageMap[service.id] || ""} alt={service.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                         {/* Overlapping icon badge */}
                         <div className="absolute -bottom-6 left-6 w-14 h-14 rounded-2xl bg-emerald-500 border-4 border-white shadow-[0_4px_12px_rgba(16,185,129,0.3)] flex items-center justify-center z-10">
                           <Icon className="h-7 w-7 text-white" />
@@ -114,7 +136,7 @@ const Services = () => {
           <div className="max-w-[1200px] mx-auto lg:grid lg:grid-cols-[45%_55%] lg:gap-16 lg:items-center">
             <AnimatedSection>
               <div className="aspect-[4/3] rounded-[20px] overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.1)]">
-                <div className="w-full h-full" style={{ background: "linear-gradient(135deg, #047857 0%, #10b981 50%, #d1fae5 100%)" }} />
+                <img src={painterInterior} alt="Professional painter at work" loading="lazy" className="w-full h-full object-cover" />
               </div>
             </AnimatedSection>
 
